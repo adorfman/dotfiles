@@ -1,0 +1,7 @@
+[user]
+	name = remotefileinclude
+	email = rfi@remotefileinclude.net
+[github]
+	user = remotefileinclude.net
+[core]
+	editor = vim
