@@ -6,7 +6,7 @@ set showmatch
 set incsearch
 set hls
 syntax on
-set paste!
+set number
 set autoindent
 set smartindent
 set ruler

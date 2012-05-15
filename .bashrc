@@ -78,6 +78,9 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
+    if [ -f  ~/.ls_colors ]; then 
+        . ~/.ls_colors; 
+    fi
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -104,6 +107,11 @@ export EDITOR=vim
 PATH=$PATH:$HOME/bin:/opt/mt/bin
 export PATH
 
+
+if [ ! -d ${HOME}/tmp ]; then 
+    mkdir ${HOME}/tmp
+fi
+      
 # automatically name our screen window to the current host
 
 case "$TERM" in
@@ -113,7 +121,9 @@ screen)
     ;;
 esac
 
-# So that screen sessions will keep SSH_AUTH_SOCK working
+# This should keep ssh-agent forwarding working in
+# screen sessions after detach -> logout -> login
+# -> attach
 
 if [ $SSH_AUTH_SOCK ]; then
     screen_ssh_agent=${HOME}/tmp/ssh-agent-screen
@@ -126,3 +136,5 @@ if [ "$TERM" = "screen" ]; then
     export SSH_AUTH_SOCK
 fi
 
+
+. $HOME/.bashrc.load
