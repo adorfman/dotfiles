@@ -43,3 +43,12 @@ Awk fields:
 
 perl -nal -e 'print $F[0] ' USEFUL_STUFF.txt 
 perl -nal -F'\+'  -e 'print $F[1] ' USEFUL_STUFF.txt 
+
+
+[ tcpdump ]
+
+# Watch http requests url 
+tcpdump -An -s 1024 dst port 80 | egrep 'Host|GET|POST'
+
+# watch syslog traffic
+tcpdump -n -s0 port 514 -v -l -t | awk '\''($1 == "Msg:") {$1=""; sub(".012$",""); print}'\'''
