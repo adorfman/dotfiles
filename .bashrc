@@ -30,7 +30,8 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color) 
+        color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -50,7 +51,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u\[\033[00m\]@\[\033[1;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -101,11 +102,11 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export SVN_EDITOR=vim
+# Set environment variables
 export EDITOR=vim
-
-PATH=$PATH:$HOME/bin:/opt/mt/bin
-export PATH
+export SVN_EDITOR=$EDITOR
+export GIT_EDITOR=$EDITOR
+export PATH=$PATH:$HOME/bin:/opt/mt/bin
 
 
 if [ ! -d ${HOME}/tmp ]; then 
