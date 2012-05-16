@@ -5,6 +5,7 @@
 	user = remotefileinclude.net
 [core]
 	editor = vim
+    excludesfile = ~/.gitignore
 
 [alias]
     plog = log -20 --abbrev-commit   --oneline --pretty=format:'%C(yellow)%h%Creset %C(white)%cr%Creset %C(red)%d%Creset %C(cyan)%s%Creset'
