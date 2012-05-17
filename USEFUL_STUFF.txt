@@ -52,3 +52,22 @@ tcpdump -An -s 1024 dst port 80 | egrep 'Host|GET|POST'
 
 # watch syslog traffic
 tcpdump -n -s0 port 514 -v -l -t | awk '\''($1 == "Msg:") {$1=""; sub(".012$",""); print}'\'''
+
+[ exim ]
+
+exipick '$header_X-Authenticated-User =~ /.*@thehotmind.com/'
+
+exipick '$header_Received =~ /.mailserveruser.com./'
+
+exipick -f "from@domain.com" -i | xargs exim -Mrm
+
+exim -Mvb <$msgid> 
+
+exim -Mvh <$msgid>
+
+
+exipick '$message_age > 259200' -i 
+
+
+
+
