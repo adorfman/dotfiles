@@ -15,7 +15,7 @@ if type git &>/dev/null ; then
         echo ".dotfiles already exists, updating..."
         (cd .dotfiles && git pull)
     fi
-    else
+else
     echo "Git does not exist, sorry."
 fi
 
