@@ -11,3 +11,5 @@ set autoindent
 set smartindent
 set ruler
 set virtualedit=all
+filetype on
+autocmd BufNewFile,BufRead *.p? compiler perl
