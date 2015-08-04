@@ -137,5 +137,14 @@ if [ "$TERM" = "screen" ]; then
     export SSH_AUTH_SOCK
 fi
 
+perllibadd() {
+    mod_dir=`pwd`
+    if [ -d "$mod_dir/lib" ] && [[ ":$PERL5LIB:" != *":$mod_dir/lib:"* ]]; then
+        PERL5LIB="${PERL5LIB:+"$PERL5LIB:"}$mod_dir/lib"
+        export PERL5LIB
+    elif [ ! -d "$1/lib"  ]; then
+        echo -e "\033[33mNo lib directory found\033[0m"
+    fi
+}
 
 . $HOME/.bashrc.load

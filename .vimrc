@@ -13,3 +13,10 @@ set ruler
 set virtualedit=all
 filetype on
 autocmd BufNewFile,BufRead *.p? compiler perl
+
+
+noremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+:imap jj <Esc>
