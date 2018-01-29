@@ -11,6 +11,11 @@ fi
 
 source ~/perl5/perlbrew/etc/bashrc
 
+alias pb="perlbrew"
+alias pbl="perlbrew list"
+alias pbu="perlbrew use"
+alias pbe="perlbrew exec --with "
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
@@ -112,7 +117,7 @@ fi
 export EDITOR=vim
 export SVN_EDITOR=$EDITOR
 export GIT_EDITOR=$EDITOR
-export PATH=$PATH:$HOME/bin:/opt/mt/bin
+export PATH=$PATH:$HOME/bin:/opt/mt/bin:./script
 
 
 if [ ! -d ${HOME}/tmp ]; then 
