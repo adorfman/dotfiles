@@ -161,4 +161,20 @@ perllibadd() {
     fi
 }
 
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
+}
+
+
+parse_perlbrew() {
+
+   if [ $PERLBREW_PERL ]; then
+     perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
+   fi
+
+}
+
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
+
+
 . $HOME/.bashrc.load
