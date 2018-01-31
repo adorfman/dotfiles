@@ -15,6 +15,11 @@ alias pb="perlbrew"
 alias pbl="perlbrew list"
 alias pbu="perlbrew use"
 alias pbe="perlbrew exec --with "
+#alias pblib="perlbrew use lib ${PERLBREW_PERL}@"
+
+pblib() {
+  perlbrew use ${PERLBREW_PERL}@${1} 
+}
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
