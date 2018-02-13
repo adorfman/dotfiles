@@ -146,7 +146,7 @@ if [ $SSH_AUTH_SOCK ]; then
     screen_ssh_agent=${HOME}/tmp/ssh-agent-screen
     export screen_ssh_agent
 
-    if [ "$TERM" != "screen" ]; then 
+    if [ "$TERM" != "screen" ] && [ "${SSH_AUTH_SOCK}" != "$screen_ssh_agent" ]; then 
        ln -snf ${SSH_AUTH_SOCK} ${screen_ssh_agent}
     fi
 fi
