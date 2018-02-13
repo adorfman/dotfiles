@@ -1,4 +1,4 @@
-set tw=72
+set tw=120
 set tabstop=4
 set shiftwidth=4
 set expandtab
