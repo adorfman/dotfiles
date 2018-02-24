@@ -174,7 +174,8 @@ parse_git_branch() {
 parse_perlbrew() {
 
    if [ $PERLBREW_PERL ]; then
-     perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
+     perlbrew list |  sed -e '/^\s\+[^*]/d' -e 's/* perl-\([^[:space:]]*\).*/p(\1)/'
+     #perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
    fi
 
 }
