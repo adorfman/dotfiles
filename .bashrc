@@ -182,5 +182,6 @@ parse_perlbrew() {
 
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
 
+export PATH=~/.npm-global/bin:$PATH
 
 . $HOME/.bashrc.load
