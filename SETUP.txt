@@ -1,0 +1,47 @@
+configure dns 192.168.2.10,11
+   systemctl restart network.service
+   yum clean all
+   yum group install "Development Tools"”
+   yum install epel-release 
+   yum install vim
+   yum install bind-utils 
+
+install docker from repo
+
+   sudo yum install -y yum-utils   device-mapper-persistent-data   lvm2
+   sudo yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo
+   sudo yum install docker-ce
+   sudo groupadd docker
+   sudo usermod -aG docker adorfman 
+
+
+install percona from repo
+  yum install Percona-Server-devel-57
+   enabled auth_socket
+    install plugin auth_socket soname 'auth_socket.so';
+    CREATE DATABASE adorfman_app_test;
+    CREATE DATABASE adorfman_app_test_2 ;
+    grant all on adorfman_app_test.* to ceri@localhost;
+    grant all on adorfman_app_test.* to adorfman@localhost;
+    grant all on adorfman_app_test_2.* to adorfman@localhost;
+    exit
+
+
+install nodejs from nodesource
+  curl -sL https://rpm.nodesource.com/setup_7.x | bash -
+  yum install -y nodejs 
+
+install perlbrew
+   curl -L https://install.perlbrew.pl | bash
+   source ~/perl5/perlbrew/etc/bashrc
+   perlbrew  install perl-5.18.4
+   perlbrew switch perl-5.18.4 
+
+install dot files
+  git clone git@github.com:adorfman/dotfiles.git
+  cd dotfiles/
+  git checkout perosnal
+  ./dotfiles/bin/dfm  
+
+Setup global npm modules
+xargs npm install --global < dotfiles/npm_packages 
