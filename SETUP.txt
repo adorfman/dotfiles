@@ -49,3 +49,10 @@ xargs npm install --global < dotfiles/npm_packages
 
 setup project repos
   gr import gr.import
+
+firewall config
+  firewall-cmd --zone=public --add-port=3000/tcp
+  firewall-cmd --zone=public --list-ports
+  iptables -nvL | grep 3000
+  firewall-cmd --zone=public --permanent --add-port=3000/tcp
+
