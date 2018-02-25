@@ -1,0 +1,48 @@
+MySQLTest:
+  dsn: "dbi:mysql:host=localhost;database=adorfman_app_test"
+  user: ""
+  password: ""
+  TraceLevel: 0
+  quote_char: '`'
+  name_sep: '.'
+  mysql_enable_utf8: 1
+
+MySQLTest2:
+  dsn: "dbi:mysql:host=localhost;database=adorfman_app_test_2"
+  user: ""
+  password: ""
+  TraceLevel: 0
+  quote_char: '`'
+  name_sep: '.' 
+  mysql_enable_utf8: 1 
+
+SQLiteTest:
+  dsn: "dbi:SQLite:dbname=testdb"
+  user: ""
+  password: ""
+  TraceLevel: 0
+  quote_char: '`'
+  name_sep: '.'
+
+CCAdmin:
+  dsn: "dbi:mysql:host=localhost"
+  user: ""
+  password: ""
+  TraceLevel: 0
+  quote_char: '`'
+  name_sep: '.'  
+  mysql_enable_utf8: 1 
+
+StagingAdmin:
+  dsn: "dbi:mysql:host=localhost"
+  user: "staging_admin"
+  password: "SKj234jFkj#5@!"
+  TraceLevel: 0
+  quote_char: '`'
+  name_sep: '.'  
+  mysql_enable_utf8: 1  
+
+# mysql>  CREATE USER 'staging_admin'@'localhost' IDENTIFIED BY 'SKj234jFkj#5@!';
+# 
+# mysql> GRANT ALL PRIVILEGES ON *.* TO 'staging_admin'@'localhost' WITH GRANT OPTION;
+
