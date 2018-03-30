@@ -45,6 +45,7 @@ install dot files
   ./dotfiles/bin/dfm  
 
 Setup global npm modules
+# npm list --global --parseable --depth=0 | sed '1d' | awk '{gsub(/\/.*\//,"",$1); print}'
 xargs npm install --global < dotfiles/npm_packages 
 
 setup project repos
