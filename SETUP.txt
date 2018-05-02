@@ -6,6 +6,7 @@ configure dns 192.168.2.10,11
    yum install vim
    yum install bind-utils 
    yum install haveged
+   yum install ntp
 
 install docker from repo
 
