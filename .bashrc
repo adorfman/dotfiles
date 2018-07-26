@@ -9,7 +9,9 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-source ~/perl5/perlbrew/etc/bashrc
+if [ -f ~/perl5/perlbrew/etc/bashrc ]; then 
+  source ~/perl5/perlbrew/etc/bashrc
+fi 
 
 alias pb="perlbrew"
 alias pbl="perlbrew list"
@@ -183,5 +185,11 @@ parse_perlbrew() {
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
 
 export PATH=~/.npm-global/bin:$PATH
+
+#intellisurvey defs
+if [ -f ~/.bashrc.adorfmandev ]; then
+    . ~/.bashrc.adorfmandev
+    PS1="[\u@\h \W]\$ "
+fi
 
 . $HOME/.bashrc.load
