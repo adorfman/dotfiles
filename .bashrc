@@ -178,18 +178,18 @@ parse_perlbrew() {
    if [ $PERLBREW_PERL ]; then
      perlbrew list |  sed -e '/^\s\+[^*]/d' -e 's/* perl-\([^[:space:]]*\).*/p(\1)/'
      #perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
+   else 
+     perl -e 'print $^V'
+     #echo "system"
    fi
 
 }
 
-export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
+export PS1="\u@\h \[\033[32m\]\W\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
 
 export PATH=~/.npm-global/bin:$PATH
 
-#intellisurvey defs
-if [ -f ~/.bashrc.adorfmandev ]; then
-    . ~/.bashrc.adorfmandev
-    PS1="[\u@\h \W]\$ "
-fi
-
 . $HOME/.bashrc.load
+
+
+#intellisurvey defs
