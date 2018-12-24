@@ -1,6 +1,6 @@
 [user]
-	name = remotefileinclude
-	email = rfi@remotefileinclude.net
+	name = Anthony Dorfman
+	email = adorfman@intellisurvey.com
 [github]
 	user = remotefileinclude.net
 [core]
@@ -16,3 +16,99 @@
     pl   = pull
     mrg  = merge
     df   = diff
+[core]
+    sharedrepository = group
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[alias]
+    st = status
+    ss = status -s
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    dc = diff --cached
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+    # show colorized 1-line commit logs:
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]%Creset" --decorate
+
+    # similar, with changed files:
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]%Creset" --decorate --numstat
+
+    # like ls but plain, with no colors:
+    lp = log --pretty=format:"%h\\\\ %s\\\\ [%cn]"
+
+    # like ls, with relative dates:
+    ld = log --pretty=format:'%C(yellow)%h\t%ad%Cred%d\t%Creset%s%Cblue [%cn]%Creset' --decorate --date=relative
+
+    # plain and dated.  sort of like my wardrobe.
+    lpd = log --pretty=format:'%h\t%ad%d\t%s [%cn]' --decorate --date=relative
+
+    # like ls, grepping for a string:  git lg IS-4224
+    lg = "!f() { git ls | grep "$1"; }; f"
+
+    # Show files ignored by git:
+    ign = ls-files -o -i --exclude-standard
+
+    # show branches sorted by date:
+    branchdates = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:relative) %09 %(refname:short)'
+
+    # show the user's branches, sorted by date:
+    mybranches = "!git for-each-ref --sort=committerdate --format='%(committerdate) %09 %(refname:short)' | grep adorfman"
+
+    # show the history of a file, with diffs:
+    filelog = log -u
+    fl = log -u
+
+    # show the last commit and modified files:
+    dl = "!git ll -1"
+
+    # as dl, with diff:
+    dlc = diff --cached HEAD^
+
+    # show content of a commit, given a revision
+
+    # just the file changes:
+    lc    = "!f() { git ll "$1"^.."$1"; }; f"
+
+    # full diff:
+    diffr = "!f() { git diff "$1"^.."$1"; }; f"
+    dr    = "!f() { git diff "$1"^.."$1"; }; f"
+
+    # find files:
+    f  = "!git ls-files | grep --color=auto"
+    fi = "!git ls-files | grep --color=auto -i"
+    fw = "!git ls-files | grep --color=auto -w"
+
+    # grep for words within files, ignoring binary files:
+    grep = grep -I
+    gr   = grep -I
+
+    # and case-insensitively:
+    gi   = grep -Ii
+
+    # and whole words:
+    gw   = grep -Iw
+
+    # show all these aliases!
+    alias = "!git config -l | grep alias | cut -c 7-"

@@ -2,6 +2,11 @@
 
 export PATH=$PATH:$HOME/bin
 
+#intellisurvey defs
+if [ -f ~/.bashrc.adorfmandev ]; then
+    . ~/.bashrc.adorfmandev
+   # PS1="[\u@\h \W]\$ "
+fi  
 # add this to the .bashrc: . $HOME/.bashrc.load
 
 ####

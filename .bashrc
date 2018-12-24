@@ -1,7 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+shopt -s expand_aliases
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -191,5 +206,14 @@ export PATH=~/.npm-global/bin:$PATH
 
 . $HOME/.bashrc.load
 
+# #intellisurvey defs
+# if [ -f ~/.bashrc.adorfmandev ]; then
+#     . ~/.bashrc.adorfmandev
+# #    PS1="[\u@\h \W]\$ "
+# fi
 
+#intellisurvey defs
+if [ -f ~/.bashrc.adorfmandev ]; then
+    . ~/.bashrc.adorfmandev
+fi
 #intellisurvey defs
