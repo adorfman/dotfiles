@@ -12,6 +12,9 @@
 
 
 
+
+
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -215,5 +218,6 @@ export PATH=~/.npm-global/bin:$PATH
 #intellisurvey defs
 if [ -f ~/.bashrc.adorfmandev ]; then
     . ~/.bashrc.adorfmandev
+#    PS1="[\u@\h \W]\$ "
 fi
 #intellisurvey defs
