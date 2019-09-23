@@ -1,7 +1,25 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+shopt -s expand_aliases
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -178,18 +196,28 @@ parse_perlbrew() {
    if [ $PERLBREW_PERL ]; then
      perlbrew list |  sed -e '/^\s\+[^*]/d' -e 's/* perl-\([^[:space:]]*\).*/p(\1)/'
      #perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
+   else 
+     perl -e 'print $^V'
+     #echo "system"
    fi
 
 }
 
-export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
+export PS1="\u@\h \[\033[32m\]\W\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
 
 export PATH=~/.npm-global/bin:$PATH
+
+. $HOME/.bashrc.load
+
+# #intellisurvey defs
+# if [ -f ~/.bashrc.adorfmandev ]; then
+#     . ~/.bashrc.adorfmandev
+# #    PS1="[\u@\h \W]\$ "
+# fi
 
 #intellisurvey defs
 if [ -f ~/.bashrc.adorfmandev ]; then
     . ~/.bashrc.adorfmandev
-    PS1="[\u@\h \W]\$ "
+#    PS1="[\u@\h \W]\$ "
 fi
-
-. $HOME/.bashrc.load
+#intellisurvey defs
