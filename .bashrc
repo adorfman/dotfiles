@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -23,20 +9,6 @@ shopt -s expand_aliases
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
-
-if [ -f ~/perl5/perlbrew/etc/bashrc ]; then 
-  source ~/perl5/perlbrew/etc/bashrc
-fi 
-
-alias pb="perlbrew"
-alias pbl="perlbrew list"
-alias pbu="perlbrew use"
-alias pbe="perlbrew exec --with "
-#alias pblib="perlbrew use lib ${PERLBREW_PERL}@"
-
-pblib() {
-  perlbrew use ${PERLBREW_PERL}@${1} 
-}
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -83,30 +55,30 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u\[\033[00m\]@\[\033[1;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u\[\033[00m\]@\[\033[1;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# fi
 unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# 
+# # If this is an xterm set the title to user@host:dir
+# case "$TERM" in
+# xterm*|rxvt*)
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#     ;;
+# *)
+#     ;;
+# esac
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -115,18 +87,18 @@ if [ -x /usr/bin/dircolors ]; then
     if [ -f  ~/.ls_colors ]; then 
         . ~/.ls_colors; 
     fi
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -135,19 +107,24 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# IS stuff
+if [ -f ~/.bashrc.adorfmandev ]; then
+    . ~/.bashrc.adorfmandev
+fi 
+
 # Set environment variables
 export EDITOR=vim
 export SVN_EDITOR=$EDITOR
 export GIT_EDITOR=$EDITOR
-export PATH=$PATH:$HOME/bin:/opt/mt/bin:./script
-
+export PATH=$PATH:$HOME/bin:./script
 
 if [ ! -d ${HOME}/tmp ]; then 
     mkdir ${HOME}/tmp
 fi
       
-# automatically name our screen window to the current host
+## Handle screen windows ##
 
+# automatically name our screen window to the current host
 case "$TERM" in
 screen)
     WINDOW_NAME=$( echo -ne $HOSTNAME | cut -c 1-10 )
@@ -173,6 +150,26 @@ if [ "$TERM" = "screen" ]; then
     export SSH_AUTH_SOCK
 fi
 
+# Set TERM once we are done configuring for screen
+if [ "$TERM" = "screen" ]; then
+    export TERM=xterm-256color
+fi 
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
+}
+
+## Perlbrew stuff ##
+if [ -f ~/perl5/perlbrew/etc/bashrc ]; then 
+  source ~/perl5/perlbrew/etc/bashrc
+fi 
+
+alias pb="perlbrew"
+alias pbl="perlbrew list"
+alias pbu="perlbrew use"
+alias pbe="perlbrew exec --with "
+#alias pblib="perlbrew use lib ${PERLBREW_PERL}@" 
+
 perllibadd() {
     mod_dir=`pwd`
     if [ -d "$mod_dir/lib" ] && [[ ":$PERL5LIB:" != *":$mod_dir/lib:"* ]]; then
@@ -181,12 +178,11 @@ perllibadd() {
     elif [ ! -d "$1/lib"  ]; then
         echo -e "\033[33mNo lib directory found\033[0m"
     fi
-}
+}     
 
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
-}
-
+pblib() {
+  perlbrew use ${PERLBREW_PERL}@${1} 
+}   
 
 parse_perlbrew() {
 
@@ -195,25 +191,29 @@ parse_perlbrew() {
      #perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
    else 
      perl -e 'print $^V'
-     #echo "system"
    fi
 
 }
-
-export PS1="\u@\h \[\033[32m\]\W\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]$ "
-
+ 
+# NPM stuff
 export PATH=~/.npm-global/bin:$PATH
+
+# Fuzzy finder
+if [ -f ~/.fzf.bash ]; then
+   source  ~/.fzf.bash
+   export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+fi
+
+# Final prompt 
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n $ " 
 
 . $HOME/.bashrc.load
 
-# #intellisurvey defs
-# if [ -f ~/.bashrc.adorfmandev ]; then
-#     . ~/.bashrc.adorfmandev
-# #    PS1="[\u@\h \W]\$ "
-# fi
+return 0
 
 #intellisurvey defs
 if [ -f ~/.bashrc.adorfmandev ]; then
     . ~/.bashrc.adorfmandev
+    PS1="[\u@\h \W]\$ "
 fi
 #intellisurvey defs

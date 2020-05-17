@@ -1,8 +1,6 @@
 [user]
 	name = Anthony Dorfman
-	email = adorfman@intellisurvey.com
-[github]
-	user = remotefileinclude.net
+	email = antdorf@gmail.com
 [core]
 	editor = vim
     excludesfile = ~/.gitignore
