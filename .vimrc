@@ -132,8 +132,11 @@ fun InitalizeVimBuffer()
     nnoremap <S-j> <C-d>
 
     " Create new window splits with \d and \D to mimic new windows in iTerm
-    nnoremap <leader>s :new <CR>
-    nnoremap <leader>v :vnew <CR>
+    nnoremap <leader>sn :new <CR>
+    nnoremap <leader>vn :vnew <CR>
+
+    nnoremap <leader>s :split <CR>
+    nnoremap <leader>v :vsplit <CR> 
 
     if &filetype == "perl"
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
