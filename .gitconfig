@@ -1,8 +1,6 @@
 [user]
 	name = Anthony Dorfman
 	email = antdorf@gmail.com
-[github]
-	user = remotefileinclude.net
 [core]
 	editor = vim
     excludesfile = ~/.gitignore
