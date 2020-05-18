@@ -117,3 +117,25 @@ LDFLAGS="-L/usr/local/lib -Wl,-rpath=/usr/local/lib" ./configure --prefix=/usr/l
 make
 sudo make install
 
+sudo yum install ctags git tcl-devel \
+    ruby ruby-devel \
+    lua lua-devel \
+    luajit luajit-devel \
+    python python-devel \
+    perl perl-devel \
+    perl-ExtUtils-ParseXS \
+    perl-ExtUtils-XSpp \
+    perl-ExtUtils-CBuilder \
+    perl-ExtUtils-Embed
+
+git clone https://github.com/vim/vim.git
+
+./configure --with-features=huge \
+--enable-multibyte \
+--enable-rubyinterp \
+--enable-pythoninterp \
+--enable-perlinterp \
+--enable-luainterp
+
+make
+sudo make install
