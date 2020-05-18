@@ -134,7 +134,7 @@ fi
 
 # automatically name our screen window to the current host
 case "$TERM" in
-screen)
+screen*)
     WINDOW_NAME=$( echo -ne $HOSTNAME | cut -c 1-10 )
     PROMPT_COMMAND='echo -ne "\033k$WINDOW_NAME\033\\"'
     ;;
@@ -148,20 +148,22 @@ if [ $SSH_AUTH_SOCK ]; then
     screen_ssh_agent=${HOME}/tmp/ssh-agent-screen
     export screen_ssh_agent
 
-    if [ "$TERM" != "screen" ] && [ "${SSH_AUTH_SOCK}" != "$screen_ssh_agent" ]; then 
+    if [[ "$TERM" != screen* ]] && [ "${SSH_AUTH_SOCK}" != "$screen_ssh_agent" ]; then 
        ln -snf ${SSH_AUTH_SOCK} ${screen_ssh_agent}
     fi
 fi
 
-if [ "$TERM" = "screen" ]; then
+if [[ $TERM == screen* ]]; then  
     SSH_AUTH_SOCK=${screen_ssh_agent}
-    export SSH_AUTH_SOCK
+    export SSH_AUTH_SOCK 
 fi
 
-# Set TERM once we are done configuring for screen
-if [ "$TERM" = "screen" ]; then
-    export TERM=xterm-256color
-fi 
+# Set TERM once we are done configuring for screen/tmux
+# This probably isn't 'correct' but vim doesn't recognize 
+# color support for screen-256color
+if [[ $TERM == screen* ]]; then 
+    export TERM=xterm-256color  
+fi
 
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
@@ -215,7 +217,9 @@ fi
 # Final prompt 
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n $ " 
 
-. $HOME/.bashrc.load
+if [ -f ~/.bashrc.load ]; then 
+    . $HOME/.bashrc.load
+fi
 
 return 0
 
