@@ -118,6 +118,9 @@ export SVN_EDITOR=$EDITOR
 export GIT_EDITOR=$EDITOR
 export PATH=$PATH:$HOME/bin:./script
 
+# TMUX with utf-8 support
+alias tmux='tmux -u'
+
 if [ ! -d ${HOME}/tmp ]; then 
     mkdir ${HOME}/tmp
 fi

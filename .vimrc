@@ -62,8 +62,11 @@ set lazyredraw  " don't bother updating screen during macro playback
 set visualbell t_vb=
 filetype on     
 
-
+" UTF-8 support
+set encoding=utf-8
+set fileencoding=utf-8 
 set background=dark
+
 syntax on 
 colorscheme nightfly
 
