@@ -2,7 +2,7 @@
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
 
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } 
+  Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } } 
   Plug 'junegunn/fzf.vim'
   Plug 'francoiscabrol/ranger.vim'
   Plug 'tpope/vim-fugitive' 
@@ -11,6 +11,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ap/vim-css-color'
   Plug 'chrisbra/Colorizer'
   Plug 'itchyny/vim-gitbranch'
+"  Plug 'powerline/powerline-fonts'
+  Plug 'airblade/vim-gitgutter'
 
   " Color themes
   Plug 'ParamagicDev/vim-medic_chalk'
@@ -93,8 +95,14 @@ let g:lightline = {
       \ 'component_function': {
       \   'gitbranch': 'gitbranch#name'
       \ },
-      \ }
+    \ }
 
+"      \ 'separator': { 'left': '▶', 'right': '' },
+"      \ 'subseparator': { 'left': '', 'right': '' }
+
+" u+E0B2
+"       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+"       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
 
 " Common mappings for most programming languages, these will be enabled by
 " InitalizeVimBuffer() for most coding files.

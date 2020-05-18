@@ -124,6 +124,11 @@ alias tmux='tmux -u'
 if [ ! -d ${HOME}/tmp ]; then 
     mkdir ${HOME}/tmp
 fi
+
+# Vim swap file directory
+if [ ! -d ${HOME}/.vim/tmp ]; then 
+    mkdir ${HOME}/.vim/tmp
+fi 
       
 ## Handle screen windows ##
 
