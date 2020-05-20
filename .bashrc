@@ -164,7 +164,8 @@ if [ "$TERM" = "screen" ]; then
 fi 
 
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
+     #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/' 
 }
 
 ## Perlbrew stuff ##
@@ -193,6 +194,11 @@ pblib() {
 }   
 
 parse_perlbrew() {
+
+   if [[ $SHOWPERL != 1 ]]; then
+      echo ''
+      return 0
+   fi
 
    if [ $PERLBREW_PERL ]; then
      perlbrew list |  sed -e '/^\s\+[^*]/d' -e 's/* perl-\([^[:space:]]*\).*/p(\1)/'

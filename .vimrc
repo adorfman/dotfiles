@@ -90,13 +90,27 @@ let g:lightline = {
       \ 'colorscheme' : 'powerline',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch2', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
+      \   'gitbranch': "gitbranch#name",
+      \   'gitbranch2' : 'LightlineFugitive' 
       \ },
+      \ 'component' : {
+      \    'vicon' : "⎇ "
+      \ },
+       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" } 
     \ }
 
+fun LightlineFugitive()
+   if exists('*gitbranch#name')
+      let branch = gitbranch#name()
+      return branch !=# '' ? ' '.branch : ''
+   endif
+   return ''
+endfun
+" make function to combine gliyph and function
 "      \ 'separator': { 'left': '▶', 'right': '' },
 "      \ 'subseparator': { 'left': '', 'right': '' }
 
