@@ -99,6 +99,10 @@ Stop / remove all containers
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
+# Debian 
+
+apt-get install sudo vim build-essential ctags locales automake libtool \
+                     libncurses-dev curl dnsutils strace silversearcher-ag tcpdump
 
 # Install tmux
 
