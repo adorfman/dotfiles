@@ -103,6 +103,9 @@ let g:lightline = {
        \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" } 
     \ }
 
+"   ☰      
+" » ▶ «  ◀ 🔒 ☰ ␊ ␤ ¶ ㏑ ⎇ ρ Þ ∥ Ꞩ Ɇ Ξ
+
 fun LightlineFugitive()
    if exists('*gitbranch#name')
       let branch = gitbranch#name()
