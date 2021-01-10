@@ -11,7 +11,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ap/vim-css-color'
   Plug 'chrisbra/Colorizer'
   Plug 'itchyny/vim-gitbranch'
-"  Plug 'powerline/powerline-fonts'
+  Plug 'powerline/powerline-fonts'
   Plug 'airblade/vim-gitgutter'
 
   " Color themes
@@ -170,8 +170,8 @@ fun InitalizeVimBuffer()
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
         inoremap FOB for my $ (  ) {<CR>}<Esc>O <Esc>xk$6hi
         inoremap WHB while (  ) {<CR>}<Esc>O <Esc>xk$3hi
-        inoremap PP package ;<CR><CR>use warnings;<CR>use strict;<CR><CR>1;<Esc>Hwi
-        inoremap SUB sub {<CR><Esc>0i  my () = @_;<CR><CR><Esc>0i}<Esc>kkkwi 
+        inoremap PPP package ;<CR><CR>use warnings;<CR>use strict;<CR><CR>1;<Esc>Hwi
+        inoremap PSUB sub {<CR><Esc>0i  my () = @_;<CR><CR><Esc>0i}<Esc>kkkwi 
         map <F12> :!perl -c %<CR>
 
         autocmd BufNewFile,BufRead *.p? compiler perl

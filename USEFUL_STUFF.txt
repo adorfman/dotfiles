@@ -99,6 +99,10 @@ Stop / remove all containers
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 
+# Debian 
+
+apt-get install sudo vim build-essential ctags locales automake libtool \
+                     libncurses-dev curl dnsutils strace silversearcher-ag tcpdump
 
 # Install tmux
 
@@ -110,12 +114,19 @@ git checkout release-2.1.8-stable
 make
 sudo make install
 cd ../
+
+sudo yum install ncurses-devel
 curl -LOk  https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz
 tar -zxvf tmux-3.1.tar.gz
 cd tmux-3.1/
 LDFLAGS="-L/usr/local/lib -Wl,-rpath=/usr/local/lib" ./configure --prefix=/usr/local
 make
 sudo make install
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+.fzf/install
+sudo yum install epel-release.noarch
+sudo yum install the_silver_searcher
 
 sudo yum install ctags git tcl-devel \
     ruby ruby-devel \
@@ -139,3 +150,19 @@ git clone https://github.com/vim/vim.git
 
 make
 sudo make install
+
+# Route to another computer network
+# Windows route ardd
+route -p ADD 192.168.56.0 MASK 255.255.255.0 192.168.10.234
+
+# pfctl soruce nat to host only vm network
+sudo pfctl -d #disables pfctl
+sudo pfctl -F all #flushes all pfctl rules
+sudo pfctl -f rules_file
+nat on vboxnet0 from 192.168.10.0/24  to any -> (vboxnet0)
+
+# nat forwarding traffic for VPN
+nat on utun10 from 192.168.10.200 to any -> (utun10)
+
+# stuff not included
+sudo yum install bind-utils lsof telnet wget tcpdump
