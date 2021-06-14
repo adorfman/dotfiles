@@ -221,10 +221,15 @@ if [ -f ~/.fzf.bash ]; then
 fi
 
 # Final prompt 
-export PS1="\u@\h \[\033[32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n $ " 
+export PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──$ \[\e[0m\]" 
+#export PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\h\[\e[33;32m\] \w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──( \[\e[0m\]"  
 
 if [ -f ~/.bashrc.load ]; then 
     . $HOME/.bashrc.load
+fi
+
+if [ -f ~/.bashrc.$HOSTNAME ]; then
+    . ~/.bashrc.$HOSTNAME
 fi
 
 return 0
