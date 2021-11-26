@@ -2,13 +2,23 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-shopt -s expand_aliases
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
+
+# Define some colors first:
+red='\e[0;31m'
+RED='\e[1;31m'
+blue='\e[0;34m'
+BLUE='\e[1;34m'
+cyan='\e[0;36m'
+CYAN='\e[1;36m'
+NC='\e[0m'              # No Color
+
+shopt -s expand_aliases
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -24,6 +34,26 @@ shopt -s histappend
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# More options
+ulimit -S -c 0		# Don't want any coredumps
+set -o notify
+set -o noclobber
+set -o ignoreeof
+#set -o nounset
+#set -o xtrace          # useful for debuging
+# 
+# # Enable options:
+shopt -s cdspell
+shopt -s cdable_vars
+shopt -s checkhash
+shopt -s checkwinsize
+shopt -s mailwarn
+shopt -s sourcepath
+shopt -s no_empty_cmd_completion  # bash>=2.04 only
+shopt -s cmdhist
+shopt -s histreedit histverify
+shopt -s extglob	# necessary for programmable completion
 
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -164,6 +194,84 @@ fi
 if [[ $TERM == screen* ]]; then 
     export TERM=xterm-256color  
 fi
+
+# function my_ip() # get IP adresses
+# {
+#     MY_IP=$(/sbin/ifconfig ppp0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
+#     MY_ISP=$(/sbin/ifconfig ppp0 | awk '/P-t-P/ { print $3 } ' | sed -e s/P-t-P://)
+# }
+# 
+# function ii()   # get current host related info
+# {
+#     echo -e "\nYou are logged on ${RED}$HOST"
+#     echo -e "\nAdditionnal information:$NC " ; uname -a
+#     echo -e "\n${RED}Users logged on:$NC " ; w -h
+#     echo -e "\n${RED}Current date :$NC " ; date
+#     echo -e "\n${RED}Machine stats :$NC " ; uptime
+#     echo -e "\n${RED}Memory stats :$NC " ; free
+#     my_ip 2>&- ;
+#     echo -e "\n${RED}Local IP Address :$NC" ; echo ${MY_IP:-"Not connected"}
+#     echo -e "\n${RED}ISP Address :$NC" ; echo ${MY_ISP:-"Not connected"}
+#     echo
+# }
+
+#=========================================================================
+#
+# PROGRAMMABLE COMPLETION - ONLY SINCE BASH-2.04
+# Most are taken from the bash 2.05 documentation and from Ian McDonalds
+# 'Bash completion' package (https://www.caliban.org/bash/index.shtml#completion)
+# You will in fact need bash-2.05a for some features
+#
+#=========================================================================
+
+if [ "${BASH_VERSION%.*}" \< "2.05" ]; then
+    echo "You will need to upgrade to version 2.05 for programmable completion"
+    return
+fi
+
+shopt -s extglob        # necessary
+set +o nounset          # otherwise some completions will fail
+
+complete -A hostname   rsh rcp telnet rlogin r ftp ping disk
+complete -A export     printenv
+complete -A variable   export local readonly unset
+complete -A enabled    builtin
+complete -A alias      alias unalias
+complete -A function   function
+complete -A user       su mail finger
+
+complete -A helptopic  help     # currently same as builtins
+complete -A shopt      shopt
+complete -A stopped -P '%' bg
+complete -A job -P '%'     fg jobs disown
+
+complete -A directory  mkdir rmdir
+complete -A directory   -o default cd
+
+# Compression
+complete -f -o default -X '*.+(zip|ZIP)'  zip
+complete -f -o default -X '!*.+(zip|ZIP)' unzip
+complete -f -o default -X '*.+(z|Z)'      compress
+complete -f -o default -X '!*.+(z|Z)'     uncompress
+complete -f -o default -X '*.+(gz|GZ)'    gzip
+complete -f -o default -X '!*.+(gz|GZ)'   gunzip
+complete -f -o default -X '*.+(bz2|BZ2)'  bzip2
+complete -f -o default -X '!*.+(bz2|BZ2)' bunzip2
+# Postscript,pdf,dvi.....
+complete -f -o default -X '!*.ps'  gs ghostview ps2pdf ps2ascii
+complete -f -o default -X '!*.dvi' dvips dvipdf xdvi dviselect dvitype
+complete -f -o default -X '!*.pdf' acroread pdf2ps
+complete -f -o default -X '!*.+(pdf|ps)' gv
+complete -f -o default -X '!*.texi*' makeinfo texi2dvi texi2html texi2pdf
+complete -f -o default -X '!*.tex' tex latex slitex
+complete -f -o default -X '!*.lyx' lyx
+complete -f -o default -X '!*.+(htm*|HTM*)' lynx html2ps
+# Multimedia
+complete -f -o default -X '!*.+(jp*g|gif|xpm|png|bmp)' xv gimp
+complete -f -o default -X '!*.+(mp3|MP3)' mpg123 mpg321
+complete -f -o default -X '!*.+(ogg|OGG)' ogg123
+
+
 
 parse_git_branch() {
      #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'

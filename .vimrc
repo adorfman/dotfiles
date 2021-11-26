@@ -18,6 +18,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ParamagicDev/vim-medic_chalk'
   Plug 'bluz71/vim-nightfly-guicolors'
 
+  Plug 'ctrlpvim/ctrlp.vim'
   call plug#end() 
 
 endif  
