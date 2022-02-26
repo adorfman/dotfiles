@@ -2,45 +2,59 @@
 
 set -euo pipefail
 
+# Load ID variable
 . /etc/os-release
 
 
 case "$ID" in
   centos*)  OS_FAMILY="redhat" ;;
-  debian*)  OS_FAMILY="bebian" ;; 
+  debian*)  OS_FAMILY="debian" ;; 
   *)        
      echo "Unknown OS family"
      exit 1;;
 esac
 
-
-REDHAT_DEPS=( autoconf libtool automake  
-    ctags git tcl-devel
-    ruby ruby-devel
-    lua lua-devel
-    luajit luajit-devel 
-    python python-devel
-    perl perl-devel 
-    perl-ExtUtils-ParseXS 
-    perl-ExtUtils-XSpp 
-    perl-ExtUtils-CBuilder
-    perl-ExtUtils-Embed
-    the_silver_searcher
- 
+REDHAT_DEPS=(
+   autoconf 
+   bind-utils
+   lsof
+   libtool 
+   automake  
+   ctags 
+   git 
+   tcl-devel
+   ruby 
+   ruby-devel
+   lua 
+   lua-devel
+   luajit 
+   luajit-devel 
+   python 
+   python-devel
+   perl 
+   perl-devel 
+   perl-ExtUtils-ParseXS 
+   perl-ExtUtils-XSpp 
+   perl-ExtUtils-CBuilder
+   perl-ExtUtils-Embed
+   the_silver_searcher
+   strace 
 );
 
 DEBIAN_DEPS=(
-   sudo vim 
+   sudo 
+   vim 
    build-essential 
-   ctags locales 
-   automake libtool 
+   ctags 
+   locales 
+   automake 
+   libtool 
    libncurses-dev 
    curl 
    dnsutils 
    strace 
    silversearcher-ag 
    tcpdump
-
 );
 
 install_redhat_deps () {
@@ -119,6 +133,21 @@ install_vim () {
 
 }
 
+install_fzf () {
+
+  if [[ -f ".fzf/.install_completed" ]]; then
+     echo "fzf already install"
+     return
+  fi 
+
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  pushd .fzf
+  ./install 
+  touch .install_completed 
+
+  popd
+}
+
 case "$OS_FAMILY" in
   redhat*) 
     install_redhat_deps ;;
@@ -132,7 +161,7 @@ pushd ~/
 install_libevent 
 install_tmux 
 install_vim
-
+install_fzf 
 
 dotfiles/bin/dfm
 
