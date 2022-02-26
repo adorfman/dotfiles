@@ -340,6 +340,11 @@ if [ -f ~/.bashrc.$HOSTNAME ]; then
     . ~/.bashrc.$HOSTNAME
 fi
 
+# Sub domain file.
+if [ -f ~/.bashrc.${HOSTNAME%%.*} ]; then
+    . ~/.bashrc.${HOSTNAME%%.*}
+fi
+
 return 0
 
 #intellisurvey defs
