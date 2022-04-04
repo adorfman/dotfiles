@@ -82,7 +82,7 @@ set fileencoding=utf-8
 set background=dark
 
 syntax on 
-colorscheme nightfly
+silent! colorscheme nightfly
 
 if has('windows')
   set splitbelow                      " open horizontal splits below current window
