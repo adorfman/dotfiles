@@ -19,6 +19,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'bluz71/vim-nightfly-guicolors'
 
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'voldikss/vim-floaterm'
+  Plug 'vim-python/python-syntax'
   call plug#end() 
 
 endif  
@@ -45,6 +47,7 @@ if has('termguicolors')
   set termguicolors                   " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
 
+set hidden " keep buffers with changes in the background
 set tw=120
 set tabstop=4
 set shiftwidth=8
@@ -56,6 +59,7 @@ set incsearch
 set hls  "highlight search
 set cursorline
 set number
+set numberwidth=4
 set autoindent
 set smartindent
 set ruler
@@ -63,7 +67,14 @@ set virtualedit=all
 set wildmenu 
 set lazyredraw  " don't bother updating screen during macro playback
 set visualbell t_vb=
+set splitright
+set splitbelow
+set encoding=UTF-8
 filetype on     
+
+
+set list lcs=trail:·,tab:»·
+"set listchars=tab:~\ ,trail:* 
 
 " UTF-8 support
 set encoding=utf-8
