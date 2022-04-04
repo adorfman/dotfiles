@@ -1,0 +1,70 @@
+# Moving around
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias -- -='cd -'
+
+
+# Docker
+alias ds='docker service'
+alias dsls='ds ls'
+alias dsi='ds inspect'
+alias dsp='ds ps'
+alias dsrm='ds rm -f'
+alias dsrall='ds rm -f \$(dsls -q)'
+alias dslg='ds logs -f'
+alias dslgt='ds logs --tail=0 -f'
+alias dsf='dsls --filter'
+alias clsdv="docker volume rm -f \$(docker volume ls -q)"
+alias clsds="docker service rm \$(docker service ls -q)"
+
+
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+# fix this for different interface names
+#alias localip="ipconfig getifaddr en0"
+alias ips="ip addr show | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)'| awk '{ gsub(/inet6|inet/,\"\",\$0);print }'"
+
+
+# Git stuff
+# log
+alias gg='git log --graph --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative'
+alias ggf='git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\'''
+alias ggs='gg --stat'
+alias ggup='git log --branches --not --remotes --no-walk --decorate --oneline' # FROM https://stackoverflow.com/questions/39220870/in-git-list-names-of-branches-with-unpushed-commits
+alias gll='git log --graph --pretty=oneline --abbrev-commit'
+alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
+alias gwc='git whatchanged'
+
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gdt='git difftool'
+
+alias gpatch='git format-patch -1'
+
+alias gs='git status'
+alias gss='git status -s'
+
+alias gr='git remote -v'
+
+alias gpo='git push origin HEAD'
+
+alias gl='git pull'
+alias glff='git pull --ff-only'
+
+alias ga='git add'
+alias gall='git add -A'
+alias gap='git add -p'
+
+# commit
+alias gc='git commit -v'
+alias gcamd='git commit --amend'
+alias gcm='git commit -v -m'
+
+gsue() {
+    git config --global user.name "$1"
+    git config --global user.email "$2"
+}
+
+return 0

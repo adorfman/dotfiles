@@ -336,6 +336,11 @@ if [ -f ~/.bashrc.load ]; then
     . $HOME/.bashrc.load
 fi
 
+if [ -f $HOME/.bashrc.aliases ]; then
+    . $HOME/.bashrc.aliases 
+fi 
+
+
 if [ -f ~/.bashrc.$HOSTNAME ]; then
     . ~/.bashrc.$HOSTNAME
 fi
