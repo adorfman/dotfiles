@@ -29,6 +29,7 @@ alias ips="ip addr show | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}
 
 # Git stuff
 # log
+alias gl='git log'
 alias gg='git log --graph --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative'
 alias ggf='git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\'''
 alias ggs='gg --stat'
@@ -48,10 +49,10 @@ alias gss='git status -s'
 
 alias gr='git remote -v'
 
-alias gpo='git push origin HEAD'
+alias gpoh='git push origin HEAD'
 
-alias gl='git pull'
-alias glff='git pull --ff-only'
+alias gpl='git pull'
+alias gplff='git pull --ff-only'
 
 alias ga='git add'
 alias gall='git add -A'
