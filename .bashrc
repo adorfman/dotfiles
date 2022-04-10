@@ -35,6 +35,9 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# Don't timeout and exit
+export TMOUT=0
+
 # More options
 ulimit -S -c 0		# Don't want any coredumps
 set -o notify

@@ -198,3 +198,17 @@ augroup custom_macros
     autocmd!
     autocmd BufEnter * call InitalizeVimBuffer()
 augroup END
+
+"if filereadable(expand("~/.vim/plugged/vimwiki/autoload/vimwiki/base.vim"))
+
+augroup vimwiki_auto_stuff
+  au!
+  au! BufRead ~/vimwiki/index.wiki !git pull
+  au! BufWritePost ~/vimwiki/*
+     \ !git -C ~/vimwiki add "%"; 
+     \ git -C ~/vimwiki commit -m "Auto commit of %:t." "%";
+     \ git -C ~/vimwiki push origin HEAD
+
+augroup END
+
+"endif
