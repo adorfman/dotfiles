@@ -79,4 +79,7 @@ alias tn='tmux new-session'
 # Lists all ongoing sessions
 alias tl='tmux list-sessions'
 
+# auto open vim wiki
+alias wiki='vim -c '\'':VimwikiIndex'\'''
+
 return 0
