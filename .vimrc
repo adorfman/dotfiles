@@ -50,10 +50,8 @@ endif
 set hidden " keep buffers with changes in the background
 set tw=120
 set tabstop=4
-set shiftwidth=8
 set autoindent                 " maintain indent of current line
 set backspace=indent,start,eol " allow unrestricted backspacing in insert mode 
-set expandtab
 set showmatch
 set incsearch
 set hls  "highlight search
@@ -72,6 +70,21 @@ set splitbelow
 set encoding=UTF-8
 filetype on     
 
+set shiftwidth=8
+set expandtab
+" allow toggling between local and default mode
+function TabToggle()
+  if &expandtab
+    set shiftwidth=8
+    set softtabstop=0
+    set noexpandtab
+  else
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+  endif
+endfunction
+nmap <F9> mz:execute TabToggle()<CR>'z
 
 set list lcs=trail:·,tab:»·
 "set listchars=tab:~\ ,trail:* 
@@ -81,6 +94,8 @@ set encoding=utf-8
 set fileencoding=utf-8 
 set background=dark
 
+set nocompatible
+filetype plugin on
 syntax on 
 silent! colorscheme nightfly
 
