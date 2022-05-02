@@ -68,6 +68,7 @@ set visualbell t_vb=
 set splitright
 set splitbelow
 set encoding=UTF-8
+set spell spelllang=en_us
 filetype on     
 
 set shiftwidth=8
