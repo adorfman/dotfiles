@@ -4,8 +4,8 @@
 ## on machines we want to install our dot files on. It will need to be 
 ## installed and run first somehow. ie: manual copy/puppet/etc
 
-BRANCH='personal'
-USER='remotefileinclude'
+BRANCH='master'
+USER='adorfman'
 
 if type git &>/dev/null ; then
     if [ ! -d .dotfiles ]; then

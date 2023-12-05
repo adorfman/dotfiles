@@ -8,8 +8,9 @@ set -euo pipefail
 
 case "$ID" in
   centos*)  OS_FAMILY="redhat" ;;
-  debian*)  OS_FAMILY="debian" ;; 
-  *)        
+  debian*)  OS_FAMILY="debian" ;;
+  ubuntu*)  OS_FAMILY="ubuntu" ;;
+  *)
      echo "Unknown OS family"
      exit 1;;
 esac
@@ -57,17 +58,33 @@ DEBIAN_DEPS=(
    tcpdump
 );
 
+UBUNTU_DEPS=(
+   sudo 
+   vim 
+   build-essential
+   exuberant-ctags
+   locales 
+   automake 
+   libtool 
+   libncurses-dev 
+   curl 
+   dnsutils 
+   strace 
+   silversearcher-ag 
+   tcpdump
+); 
+
 install_redhat_deps () {
   echo "Installing Redhate packages"
 
   sudo yum install -y epel-release.noarch
-  sudo yum install -y ${REDHAT_DEPS[@]}     
+  sudo yum install -y ${REDHAT_DEPS[@]}
 }
 
 install_debian_deps () {
   echo "Installing Debian packages"
 
-  apt-get install -y ${DEBIAN_DEPS[@]}     
+  sudo apt-get install -y $@
 }
 
 
@@ -152,8 +169,10 @@ case "$OS_FAMILY" in
   redhat*) 
     install_redhat_deps ;;
   debian*)  
-    install_debian_deps ;; 
-  *)    
+          install_debian_deps "${DEBIAN_DEPS[@]}" ;;
+  ubuntu*)  
+          install_debian_deps "${UBUNTU_DEPS[@]}"  ;;
+  *)
 esac
 
 pushd ~/
@@ -165,7 +184,7 @@ install_fzf
 
 dotfiles/bin/dfm
 
-vim +PlugInstall +qall    
+vim +PlugInstall +qall
 
 popd
 
