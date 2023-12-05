@@ -1,0 +1,7 @@
+Host debian-services
+    HostName debian-services.truenas.adorfman.net
+    User adorfman
+
+Host truenas
+    HostName truenas.adorfman.net
+    User root
