@@ -1,6 +1,11 @@
 Host debian-services
     HostName debian-services.truenas.adorfman.net
     User adorfman
+    ForwardAgent yes
+
+Host core-services
+    HostName core-services.adorfman.net
+    User adorfman 
 
 Host truenas
     HostName truenas.adorfman.net
