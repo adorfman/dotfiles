@@ -82,7 +82,9 @@ install_redhat_deps () {
 }
 
 install_debian_deps () {
-  echo "Installing Debian packages"
+  echo "Installing $ID packages"
+
+  sudo apt update
 
   sudo apt-get install -y $@
 }
