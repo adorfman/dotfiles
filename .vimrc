@@ -194,6 +194,8 @@ fun InitalizeVimBuffer()
     nnoremap <leader>s :split <CR>
     nnoremap <leader>v :vsplit <CR> 
 
+    tnoremap <Esc> <C-\><C-n>
+
     if &filetype == "perl"
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
         inoremap FOB for my $ (  ) {<CR>}<Esc>O <Esc>xk$6hi

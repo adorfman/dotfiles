@@ -46,7 +46,7 @@ DEBIAN_DEPS=(
    sudo 
    vim 
    build-essential 
-   ctags 
+#   ctags 
    locales 
    automake 
    libtool 
@@ -99,7 +99,7 @@ install_libevent () {
 
   git clone https://github.com/libevent/libevent.git
   pushd libevent/
-  git checkout release-2.1.8-stable
+  git checkout release-2.1.7-stable
   ./autogen.sh
   ./configure --prefix=/usr/local
   make
@@ -172,6 +172,13 @@ case "$OS_FAMILY" in
     install_redhat_deps ;;
   debian*)  
           install_debian_deps "${DEBIAN_DEPS[@]}" ;;
+          VERSION=$(cat /etc/debian_version);
+
+          if [[ VERSION > 11 ]]: then 
+             sudo apt-get install -y tmux
+             SKIP_TMUX_BUILD=1;
+          if
+
   ubuntu*)  
           install_debian_deps "${UBUNTU_DEPS[@]}"  ;;
   *)
@@ -179,8 +186,10 @@ esac
 
 pushd ~/
 
-install_libevent 
-install_tmux 
+if [[ $SKIP_TMUX_BUILD -ne 1 ]]; then
+  install_libevent 
+  install_tmux 
+fi
 install_vim
 install_fzf 
 
