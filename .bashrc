@@ -11,12 +11,40 @@ fi
 
 # Define some colors first:
 red='\e[0;31m'
-RED='\e[1;31m'
+#RED='\e[1;31m'
 blue='\e[0;34m'
-BLUE='\e[1;34m'
+#BLUE='\e[1;34m'
 cyan='\e[0;36m'
 CYAN='\e[1;36m'
 NC='\e[0m'              # No Color
+
+NOC='\e[0m'
+WHITE='\e[1m'
+GREY='\e[2m'
+UNDERLINE='\e[4m'
+DEFACE='e[[9m'
+DARK='\e[30m'
+RED='\e[31m'
+GREEN='\e[32m'
+YELOW='\e[33m'
+BLUE='\e[34m'
+PINK='\e[35m'
+AZURE='\e[36m'
+BDARK='\e[40m'
+BRED='\e[41m'
+BGREEN='\e[42m'
+BYELOW='\e[43m'
+BBLUE='\e[44m'
+BPINK='\e[45m'
+BAZURE='\e[46m'
+BWHITE='\e[7m'
+HDARK='\e[90m'
+HRED='\e[91m'
+HGREEN='\e[92m'
+HYELOW='\e[93m'
+HBLUE='\e[94m'
+HPINK='\e[95m'
+HAZURE='\e[96m'
 
 shopt -s expand_aliases
 
@@ -277,8 +305,48 @@ complete -f -o default -X '!*.+(ogg|OGG)' ogg123
 
 
 parse_git_branch() {
-     #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/' 
+    #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
+
+    if git ls-files ./ --error-unmatch >/dev/null 2>/dev/null ; then
+        branch=$( git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ) 
+
+        status=$(git status | grep -e "^.*Your branch is")
+        mod=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}[RM]"|wc -l)
+        add=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}A"|wc -l)
+        del=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}D"|wc -l)
+
+        if echo $status | grep 'ahead' > /dev/null ; then
+                num=$(echo $status | grep -o "[0-9]*")
+                rstat=" ${AZURE}U:${HYELOW}->${HRED}$num$NOC"
+        elif echo $status | grep 'behind' > /dev/null ; then
+            num=$(echo $status | grep -o "[0-9]*")
+            rstat=" ${AZURE}U:${HYELOW}<-${HRED}$num$NOC"
+        else
+                rstat=""
+        fi
+
+
+        if [ $mod -gt 0 ] ; then 
+            mod="$HRED\u2248$mod$NOC"
+        else
+            mod="$NOC\u2248$WHITE$mod$NOC"
+        fi
+        if [ $add -gt 0 ] ; then 
+            add="$HRED$add$NOC"
+        else
+            add="$NOC$WHITE$add$NOC"
+        fi
+        if [ $del -gt 0 ] ; then 
+            del="$HRED$del$NOC"
+        else
+            del="$NOC$WHITE$del$NOC"
+        fi
+
+        gitpart="  [$branch]$NOC $mod \u002b$add \u2212$del $rstat"
+
+        echo -e $gitpart;
+     fi
+
 }
 
 ## Perlbrew stuff ##
@@ -353,11 +421,7 @@ if [ -f ~/.bashrc.${HOSTNAME%%.*} ]; then
     . ~/.bashrc.${HOSTNAME%%.*}
 fi
 
+
 return 0
 
-#intellisurvey defs
-if [ -f ~/.bashrc.adorfmandev ]; then
-    . ~/.bashrc.adorfmandev
-#    PS1="[\u@\h \W]\$ "
-fi
-#intellisurvey defs
+
