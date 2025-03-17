@@ -167,20 +167,28 @@ install_fzf () {
   popd
 }
 
+install_zoixide () {
+
+   curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+}
+
 case "$OS_FAMILY" in
   redhat*) 
     install_redhat_deps ;;
   debian*)  
-          install_debian_deps "${DEBIAN_DEPS[@]}" ;;
-          VERSION=$(cat /etc/debian_version);
+    install_debian_deps "${DEBIAN_DEPS[@]}" ;;
+    VERSION=$(cat /etc/debian_version);
 
-          if [[ VERSION > 11 ]]: then 
-             sudo apt-get install -y tmux
-             SKIP_TMUX_BUILD=1;
-          if
+    if [[ $VERSION > 11 ]]: then 
+       sudo apt-get install -y tmux
+       SKIP_TMUX_BUILD=1;
+    fi
+
+    ;;
 
   ubuntu*)  
-          install_debian_deps "${UBUNTU_DEPS[@]}"  ;;
+    install_debian_deps "${UBUNTU_DEPS[@]}"  ;;
   *)
 esac
 
@@ -192,6 +200,7 @@ if [[ $SKIP_TMUX_BUILD -ne 1 ]]; then
 fi
 install_vim
 install_fzf 
+install_zoixide
 
 dotfiles/bin/dfm
 

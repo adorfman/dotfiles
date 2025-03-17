@@ -177,7 +177,7 @@ fi
 export EDITOR=vim
 export SVN_EDITOR=$EDITOR
 export GIT_EDITOR=$EDITOR
-export PATH=$PATH:$HOME/bin:./script
+export PATH=$PATH:$HOME/bin:./script:$HOME/.local/bin
 
 # TMUX with utf-8 support
 alias tmux='tmux -u'
@@ -398,6 +398,8 @@ if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 fi
+
+eval "$(zoxide init --cmd cd bash)"
 
 # Final prompt 
 export PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──$ \[\e[0m\]" 
