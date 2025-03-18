@@ -56,6 +56,7 @@ DEBIAN_DEPS=(
    strace 
    silversearcher-ag 
    tcpdump
+   ripgrep
 );
 
 UBUNTU_DEPS=(
