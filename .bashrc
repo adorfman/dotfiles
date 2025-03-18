@@ -314,6 +314,7 @@ parse_git_branch() {
         mod=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}[RM]"|wc -l)
         add=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}A"|wc -l)
         del=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}D"|wc -l)
+        unk=$(git status -s --porcelain | egrep  "^\?\?"| wc -l )
 
         if echo $status | grep 'ahead' > /dev/null ; then
                 num=$(echo $status | grep -o "[0-9]*")
@@ -342,7 +343,13 @@ parse_git_branch() {
             del="$NOC$WHITE$del$NOC"
         fi
 
-        gitpart="  [$branch]$NOC $mod \u002b$add \u2212$del $rstat"
+        if [ $unk -gt 0 ] ; then 
+            unk="?$CYAN$unk$NOC"
+        else
+            unk=""
+        fi   
+
+        gitpart="  [$branch]$NOC $mod \u002b$add \u2212$del $unk $rstat"
 
         echo -e $gitpart;
      fi
