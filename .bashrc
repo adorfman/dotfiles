@@ -226,25 +226,6 @@ if [[ $TERM == screen* ]]; then
     export TERM=xterm-256color  
 fi
 
-# function my_ip() # get IP adresses
-# {
-#     MY_IP=$(/sbin/ifconfig ppp0 | awk '/inet/ { print $2 } ' | sed -e s/addr://)
-#     MY_ISP=$(/sbin/ifconfig ppp0 | awk '/P-t-P/ { print $3 } ' | sed -e s/P-t-P://)
-# }
-# 
-# function ii()   # get current host related info
-# {
-#     echo -e "\nYou are logged on ${RED}$HOST"
-#     echo -e "\nAdditionnal information:$NC " ; uname -a
-#     echo -e "\n${RED}Users logged on:$NC " ; w -h
-#     echo -e "\n${RED}Current date :$NC " ; date
-#     echo -e "\n${RED}Machine stats :$NC " ; uptime
-#     echo -e "\n${RED}Memory stats :$NC " ; free
-#     my_ip 2>&- ;
-#     echo -e "\n${RED}Local IP Address :$NC" ; echo ${MY_IP:-"Not connected"}
-#     echo -e "\n${RED}ISP Address :$NC" ; echo ${MY_ISP:-"Not connected"}
-#     echo
-# }
 
 #=========================================================================
 #
@@ -303,9 +284,7 @@ complete -f -o default -X '!*.+(mp3|MP3)' mpg123 mpg321
 complete -f -o default -X '!*.+(ogg|OGG)' ogg123
 
 
-
 parse_git_branch() {
-    #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/b(\1)/'
 
     if git ls-files ./ --error-unmatch >/dev/null 2>/dev/null ; then
         branch=$( git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ) 
@@ -375,11 +354,11 @@ perllibadd() {
     elif [ ! -d "$1/lib"  ]; then
         echo -e "\033[33mNo lib directory found\033[0m"
     fi
-}     
+}
 
 pblib() {
   perlbrew use ${PERLBREW_PERL}@${1} 
-}   
+}
 
 parse_perlbrew() {
 
@@ -406,7 +385,22 @@ if [ -f ~/.fzf.bash ]; then
    export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 fi
 
+# Zoxide
 eval "$(zoxide init --cmd cd bash)"
+
+# Go dev
+export GOROOT=/usr/loca/go
+export GOPATH=$HOME/golib
+
+GOCODE=$HOME/gocode
+mkdir -p $GOCODE
+mkdir -p $GOCODE/src
+mkdir -p $GOCODE/pkg
+mkdir -p $GOCODE/bin
+
+export GOPATH=$GOPATH:$GOCODE 
+export PATH=$PATH:$GOROOT/bin:$GOCODE/bin:$GOPATH/bin
+
 
 # Final prompt 
 export PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──$ \[\e[0m\]" 
