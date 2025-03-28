@@ -9,6 +9,8 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+PATH=$(getconf PATH)
+
 # Define some colors first:
 red='\e[0;31m'
 #RED='\e[1;31m'
@@ -168,10 +170,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# IS stuff
-if [ -f ~/.bashrc.adorfmandev ]; then
-    . ~/.bashrc.adorfmandev
-fi 
 
 # Set environment variables
 export EDITOR=vim
@@ -405,8 +403,23 @@ export PATH=$PATH:$GOBIN
 
 
 # Final prompt 
-export PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──$ \[\e[0m\]" 
-#export PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\h\[\e[33;32m\] \w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──( \[\e[0m\]"  
+PROMPT_COMMAND=__prompt_command
+
+__prompt_command() {
+
+   local EXIT="$?"
+
+
+   if [ $EXIT != 0 ]; then
+       prompt="${RED}$ "        # Add red if exit code non 0
+   else 
+      prompt='$ '
+   fi
+
+   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]" 
+
+
+}
 
 if [ -f ~/.bashrc.load ]; then 
     . $HOME/.bashrc.load
