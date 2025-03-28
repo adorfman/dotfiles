@@ -389,7 +389,7 @@ fi
 eval "$(zoxide init --cmd cd bash)"
 
 # Go dev
-export GOROOT=/usr/loca/go
+export GOROOT=/usr/local/go
 export GOPATH=$HOME/golib
 
 GOCODE=$HOME/gocode
@@ -398,8 +398,10 @@ mkdir -p $GOCODE/src
 mkdir -p $GOCODE/pkg
 mkdir -p $GOCODE/bin
 
+GOBIN=$GOROOT/bin:$GOCODE/bin:$GOPATH/bin
+
 export GOPATH=$GOPATH:$GOCODE 
-export PATH=$PATH:$GOROOT/bin:$GOCODE/bin:$GOPATH/bin
+export PATH=$PATH:$GOBIN
 
 
 # Final prompt 
