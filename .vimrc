@@ -13,6 +13,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'itchyny/vim-gitbranch'
   Plug 'powerline/powerline-fonts'
   Plug 'airblade/vim-gitgutter'
+   
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 
   " Color themes
   Plug 'ParamagicDev/vim-medic_chalk'
@@ -208,6 +211,8 @@ fun InitalizeVimBuffer()
         inoremap PPP package ;<CR><CR>use warnings;<CR>use strict;<CR><CR>1;<Esc>Hwi
         inoremap PSUB sub {<CR><Esc>0i  my () = @_;<CR><CR><Esc>0i}<Esc>kkkwi 
         map <F12> :!perl -c %<CR>
+
+        nnoremap <leader>PP :read ~/.vim/snippets/perl/package<CR>
 
         autocmd BufNewFile,BufRead *.p? compiler perl
 

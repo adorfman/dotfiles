@@ -58,6 +58,8 @@ DEBIAN_DEPS=(
    tcpdump
    ripgrep
    ranger
+   python3-distutils
+   python3-dev
 );
 
 UBUNTU_DEPS=(
@@ -76,6 +78,8 @@ UBUNTU_DEPS=(
    tcpdump
    ripgrep
    ranger 
+   python3-distutils
+   python3-dev 
 ); 
 
 install_redhat_deps () {
@@ -144,7 +148,10 @@ install_vim () {
   ./configure --with-features=huge \
               --enable-multibyte \
               --enable-rubyinterp \
-              --enable-pythoninterp \
+              --enable-python3interp \
+              --with-python3-config-dir=/usr/lib/python3.11/config-* \
+              --with-python3-command=/usr/bin/python3 \
+              --without-x \
               --enable-perlinterp \
               --enable-luainterp
    

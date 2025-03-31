@@ -9,7 +9,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-PATH=$(getconf PATH)
+PATH=/usr/local/bin:$(getconf PATH)
 
 # Define some colors first:
 red='\e[0;31m'
@@ -175,7 +175,7 @@ fi
 export EDITOR=vim
 export SVN_EDITOR=$EDITOR
 export GIT_EDITOR=$EDITOR
-export PATH=$PATH:$HOME/bin:./script:$HOME/.local/bin
+export PATH=$HOME/bin:./script:$HOME/.local/bin:$PATH
 
 # TMUX with utf-8 support
 alias tmux='tmux -u'
@@ -399,7 +399,7 @@ mkdir -p $GOCODE/bin
 GOBIN=$GOROOT/bin:$GOCODE/bin:$GOPATH/bin
 
 export GOPATH=$GOPATH:$GOCODE 
-export PATH=$PATH:$GOBIN
+export PATH=$GOBIN:$PATH
 
 
 # Final prompt 
