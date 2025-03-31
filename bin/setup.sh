@@ -57,6 +57,7 @@ DEBIAN_DEPS=(
    silversearcher-ag 
    tcpdump
    ripgrep
+   ranger
 );
 
 UBUNTU_DEPS=(
@@ -73,6 +74,8 @@ UBUNTU_DEPS=(
    strace 
    silversearcher-ag 
    tcpdump
+   ripgrep
+   ranger 
 ); 
 
 install_redhat_deps () {

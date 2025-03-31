@@ -170,7 +170,12 @@ fun InitalizeVimBuffer()
 
     " Toggle number/relative number/no number
     nnoremap <silent>  <leader>l :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
+
     nnoremap <leader>r :Ranger<CR>
+    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>F :Files<CR> 
+    nnoremap <leader>g :Rg<CR>  
+
     :imap jj <Esc> 
 
     nnoremap <C-J> <C-W><C-J>

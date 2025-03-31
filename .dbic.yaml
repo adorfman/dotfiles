@@ -36,13 +36,13 @@ CCAdmin:
 StagingAdmin:
   dsn: "dbi:mysql:host=localhost"
   user: "staging_admin"
-  password: "SKj234jFkj#5@!"
+  password: ""
   TraceLevel: 0
   quote_char: '`'
   name_sep: '.'  
   mysql_enable_utf8: 1  
 
-# mysql>  CREATE USER 'staging_admin'@'localhost' IDENTIFIED BY 'SKj234jFkj#5@!';
+# mysql>  CREATE USER 'staging_admin'@'localhost' IDENTIFIED BY '';
 # 
 # mysql> GRANT ALL PRIVILEGES ON *.* TO 'staging_admin'@'localhost' WITH GRANT OPTION;
 
