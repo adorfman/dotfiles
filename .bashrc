@@ -380,7 +380,8 @@ export PATH=~/.npm-global/bin:$PATH
 # Fuzzy finder
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
-   export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+   #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+   export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs  -g '!.git' --hidden'
 fi
 
 # Zoxide
@@ -435,9 +436,9 @@ if [ -f ~/.bashrc.$HOSTNAME ]; then
 fi
 
 # Sub domain file.
-if [ -f ~/.bashrc.${HOSTNAME%%.*} ]; then
-    . ~/.bashrc.${HOSTNAME%%.*}
-fi
+#if [ -f ~/.bashrc.${HOSTNAME%%.*} ]; then
+#    . ~/.bashrc.${HOSTNAME%%.*}
+#fi
 
 
 return 0
