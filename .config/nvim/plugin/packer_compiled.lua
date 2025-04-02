@@ -108,6 +108,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/adorfman/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
+  },
+  ["vim-floaterm"] = {
+    loaded = true,
+    path = "/home/adorfman/.local/share/nvim/site/pack/packer/start/vim-floaterm",
+    url = "https://github.com/voldikss/vim-floaterm"
   }
 }
 
