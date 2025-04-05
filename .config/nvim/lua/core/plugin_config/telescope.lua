@@ -1,4 +1,3 @@
-require('telescope').load_extension('themes')
 
 local builtin_schemes = require("telescope._extensions.themes").builtin_schemes
 
@@ -22,44 +21,46 @@ require("telescope").setup({
             -- (boolean) -> enable/disable live preview
             enable_live_preview = true,
 
-            -- all builtin themes are ignored by default
-            -- (list) -> provide table of theme names to overwrite builtins list
-            ignore = { "default", "desert", "elflord", "habamax" },
-            -- OR
-            -- extend the required `builtin_schemes` list to ignore other
-            -- schemes in addition to builtin schemes
-            ignore = vim.list_extend(builtin_schemes, { "embark" }),
+            ---- all builtin themes are ignored by default
+            ---- (list) -> provide table of theme names to overwrite builtins list
+            --ignore = { "default", "desert", "elflord", "habamax" },
+            ---- OR
+            ---- extend the required `builtin_schemes` list to ignore other
+            ---- schemes in addition to builtin schemes
+            --ignore = vim.list_extend(builtin_schemes, { "embark" }),
 
-            -- (table)
-            -- (boolean) ignore -> toggle ignore light themes
-            -- (list) keywords -> list of keywords that would identify as light theme
-            light_themes = {
-                ignore = true,
-                keywords = { "light", "day", "frappe" }
-            },
+            ---- (table)
+            ---- (boolean) ignore -> toggle ignore light themes
+            ---- (list) keywords -> list of keywords that would identify as light theme
+            --light_themes = {
+            --    ignore = true,
+            --    keywords = { "light", "day", "frappe" }
+            --},
 
-            -- (table)
-            -- (boolean) ignore -> toggle ignore dark themes
-            -- (list) keywords -> list of keywords that would identify as dark theme
-            dark_themes = {
-                ignore = false,
-                keywords = { "dark", "night", "black" }
-            },
+            ---- (table)
+            ---- (boolean) ignore -> toggle ignore dark themes
+            ---- (list) keywords -> list of keywords that would identify as dark theme
+            --dark_themes = {
+            --    ignore = false,
+            --    keywords = { "dark", "night", "black" }
+            --},
 
-            persist = {
-                -- enable persisting last theme choice
-                enabled = true,
+            --persist = {
+            --    -- enable persisting last theme choice
+            --    enabled = true,
 
-                -- override path to file that execute colorscheme command
-                path = vim.fn.stdpath("config") .. "/lua/colorscheme.lua"
-            },
-            mappings = {
-                -- for people used to other mappings
-                down = "<C-n>",
-                up = "<C-p>",
-                accept = "<C-y>",
-            },
+            --    -- override path to file that execute colorscheme command
+            --    path = vim.fn.stdpath("config") .. "/lua/colorscheme.lua"
+            --},
+            --mappings = {
+            --    -- for people used to other mappings
+            --    down = "<C-n>",
+            --    up = "<C-p>",
+            --    accept = "<C-y>",
+            --},
         },
     },
 })
+
+require('telescope').load_extension('themes')
 
