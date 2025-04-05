@@ -31,6 +31,11 @@ return require('packer').startup(function(use)
   }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' 
   }
+ use { 
+    'andrewberty/telescope-themes',
+    requires = { 'nvim-telescope/telescope.nvim','nvim-lua/plenary.nvim' }
+}
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
