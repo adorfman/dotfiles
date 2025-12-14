@@ -384,8 +384,7 @@ if [ -f ~/.fzf.bash ]; then
    export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs  -g '!.git' --hidden'
 fi
 
-# Zoxide
-eval "$(zoxide init --cmd cd bash)"
+
 
 # Go dev
 export GOROOT=/usr/local/go
@@ -412,12 +411,14 @@ __prompt_command() {
 
 
    if [ $EXIT != 0 ]; then
-       prompt="${RED}$ "        # Add red if exit code non 0
+      #prompt="${RED} $ ${NOC}\]"        # Add red if exit code non 0
+      prompt="\[\e[31m\]$ "        # Add red if exit code non 0
+      #prompt="$ "
    else 
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]\w\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]" 
+   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]" 
 
 
 }
@@ -435,11 +436,13 @@ if [ -f ~/.bashrc.$HOSTNAME ]; then
     . ~/.bashrc.$HOSTNAME
 fi
 
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 # Sub domain file.
 #if [ -f ~/.bashrc.${HOSTNAME%%.*} ]; then
 #    . ~/.bashrc.${HOSTNAME%%.*}
 #fi
-
+# Zoxide
+eval "$(zoxide init --cmd cd bash)" 
 
 return 0
 
