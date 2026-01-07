@@ -442,7 +442,7 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 #    . ~/.bashrc.${HOSTNAME%%.*}
 #fi
 # Zoxide
-eval "$(zoxide init --cmd cd bash)" 
+eval "$(zoxide init bash --cmd cd )" 
 
 return 0
 
