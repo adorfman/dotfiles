@@ -5,4 +5,9 @@ if [ -f ~/.bashrc ]; then
         . ~/.bashrc
 fi
 
-neofetch
+if command -v neofetch &> /dev/null; then
+  neofetch
+elif command -v fastfetch &> /dev/null; then
+  fastfetch
+fi
+
