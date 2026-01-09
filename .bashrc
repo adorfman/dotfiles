@@ -288,10 +288,10 @@ parse_git_branch() {
         branch=$( git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ) 
 
         status=$(git status | grep -e "^.*Your branch is")
-        mod=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}[RM]"|wc -l)
-        add=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}A"|wc -l)
-        del=$(git status -s --porcelain | egrep -v "^\?\?"| grep -E "^.{0,1}D"|wc -l)
-        unk=$(git status -s --porcelain | egrep  "^\?\?"| wc -l )
+        mod=$(git status -s --porcelain | grep -e  "^\?\?"| grep -E "^.{0,1}[RM]"|wc -l)
+        add=$(git status -s --porcelain | grep -e  "^\?\?"| grep -E "^.{0,1}A"|wc -l)
+        del=$(git status -s --porcelain | grep -e  "^\?\?"| grep -E "^.{0,1}D"|wc -l)
+        unk=$(git status -s --porcelain | grep -E  "^\?\?"| wc -l )
 
         if echo $status | grep 'ahead' > /dev/null ; then
                 num=$(echo $status | grep -o "[0-9]*")
