@@ -187,8 +187,8 @@ fun InitalizeVimBuffer()
     nnoremap <C-H> <C-W><C-H> 
 
     " Move between tabs with Shift-] and Shift-[, create new tabs with \t
-    nnoremap { :tabNext <CR>
-    nnoremap } :tabprevious <CR>
+    nnoremap <leader>[ :tabp <CR>
+    nnoremap <leader>] :tabn <CR>
     nnoremap <leader>t :tabnew <CR>
 
     " Use Shift-J and Shift-K for page down/up like I could with arrows.
