@@ -382,9 +382,21 @@ if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
    export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs  -g '!.git' --hidden'
+
+
 fi
 
+frg() {
 
+   rg --line-number --no-heading --color=never \
+      --smart-case  --ignore-vcs  -g '!.git' --hidden "$@" | \
+   fzf --delimiter ':' --preview 'batcat --style=full --color=always --highlight-line {2} {1}' \
+       --preview-window '~4,+{2}+4/3,<80(up)' \
+       --with-nth=1,2 --accept-nth=1
+
+}
+
+export -f frg 
 
 # Go dev
 export GOROOT=/usr/local/go

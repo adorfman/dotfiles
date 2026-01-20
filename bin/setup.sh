@@ -49,6 +49,7 @@ DEBIAN_DEPS=(
 #   ctags 
    locales 
    automake 
+   cmake
    libtool 
    libncurses-dev 
    curl 
@@ -60,6 +61,9 @@ DEBIAN_DEPS=(
    ranger
    python3-distutils
    python3-dev
+   universal-ctags
+   libssl-dev 
+   libmbedtls-dev
 );
 
 UBUNTU_DEPS=(
@@ -80,6 +84,10 @@ UBUNTU_DEPS=(
    ranger 
    python3-distutils
    python3-dev 
+   lazygit
+   universal-ctags
+   libssl-dev 
+   libmbedtls-dev 
 ); 
 
 install_redhat_deps () {
@@ -99,6 +107,30 @@ install_debian_deps () {
 
 
 install_libevent () {
+
+  if [[ -f "libevent/.install_completed" ]]; then
+     echo "libevent already install"
+     return
+  fi
+
+  if [[ ! -d "libevent" ]]; then 
+      git clone https://github.com/libevent/libevent.git
+  fi
+
+  pushd libevent/
+
+  mkdir -p build && cd build
+  cmake  ..
+  make
+  sudo make install
+  touch .install_completed
+
+  popd
+
+}
+
+# Autoconf deprecated in 2.1
+install_libevent_legacy () {
 
   if [[ -f "libevent/.install_completed" ]]; then
      echo "libevent already install"
@@ -178,22 +210,43 @@ install_fzf () {
   popd
 }
 
+ install_fzf
+ exit
+
 install_zoixide () {
 
    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 }
 
+install_lazy_git_debian() {
+
+  if [[ -f "/usr/local/bin/lazygit" ]]; then
+     echo "lazy already install"
+     return
+  fi
+
+  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+  tar xf lazygit.tar.gz lazygit
+  sudo install lazygit -D -t /usr/local/bin/
+
+}
+
+
 case "$OS_FAMILY" in
   redhat*) 
     install_redhat_deps ;;
   debian*)  
-    install_debian_deps "${DEBIAN_DEPS[@]}" ;;
-    VERSION=$(cat /etc/debian_version);
+    install_debian_deps "${DEBIAN_DEPS[@]}"
+    VERSION=$(cat /etc/debian_version)
 
-    if [[ $VERSION > 11 ]]: then 
-       sudo apt-get install -y tmux
-       SKIP_TMUX_BUILD=1;
+    if [[ $VERSION -gt 11 ]]; then
+       sudo apt-get install -y tmux lazygit
+    else
+       install_libevent
+       install_tmux 
+       install_lazy_git_debian
     fi
 
     ;;
@@ -205,12 +258,9 @@ esac
 
 pushd ~/
 
-if [[ $SKIP_TMUX_BUILD -ne 1 ]]; then
-  install_libevent 
-  install_tmux 
-fi
+
 install_vim
-install_fzf 
+install_fzf
 install_zoixide
 
 dotfiles/bin/dfm

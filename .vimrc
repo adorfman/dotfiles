@@ -14,9 +14,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'powerline/powerline-fonts'
   Plug 'airblade/vim-gitgutter'
    
-  Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
-
   " Color themes
   Plug 'ParamagicDev/vim-medic_chalk'
   Plug 'bluz71/vim-nightfly-guicolors'
@@ -204,6 +203,8 @@ fun InitalizeVimBuffer()
 
     tnoremap <Esc> <C-\><C-n>
 
+    nnoremap <leader>tm :terminal <CR>  
+
     if &filetype == "perl"
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
         inoremap FOB for my $ (  ) {<CR>}<Esc>O <Esc>xk$6hi
@@ -238,5 +239,7 @@ augroup vimwiki_auto_stuff
      \ git -C ~/vimwiki push origin HEAD
 
 augroup END
+
+autocmd  TerminalOpen * setlocal nonumber norelativenumber
 
 "endif

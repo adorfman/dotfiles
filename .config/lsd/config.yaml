@@ -1,0 +1,18 @@
+color:
+    when: auto
+size: short
+total-size: false
+indicators: false
+no-symlink: false
+icons:
+    when: auto
+    separator: "  "
+date: relative
+blocks:
+    - permission
+    - user
+    - group
+    - size
+    - date
+    - name
+symlink-arrow: ->
