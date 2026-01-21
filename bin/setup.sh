@@ -208,6 +208,8 @@ install_fzf () {
   touch .install_completed 
 
   popd
+
+  git clone https://github.com/lincheney/fzf-tab-completion.git
 }
 
  install_fzf

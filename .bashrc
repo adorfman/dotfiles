@@ -380,8 +380,12 @@ export PATH=~/.npm-global/bin:$PATH
 # Fuzzy finder
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
+   source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
+   bind -x '"\t": fzf_bash_completion' 
+   export  FZF_COMPLETION_OPTS="--preview 'ls -a {1}' --preview-window=right,60%,wrap" 
+
    #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-   export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs  -g '!.git' --hidden'
+   #export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs  -g '!.git' --hidden'
 
 
 fi
