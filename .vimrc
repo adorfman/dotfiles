@@ -205,6 +205,8 @@ fun InitalizeVimBuffer()
 
     nnoremap <leader>tm :terminal <CR>  
 
+    nnoremap <leader>tr :keepalt file
+
     if &filetype == "perl"
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
         inoremap FOB for my $ (  ) {<CR>}<Esc>O <Esc>xk$6hi
