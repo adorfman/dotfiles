@@ -382,9 +382,16 @@ if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
    bind -x '"\t": fzf_bash_completion' 
-   export  FZF_COMPLETION_OPTS="--preview 'ls -a {1}' --preview-window=right,60%,wrap" 
+   #export  FZF_COMPLETION_OPTS="--preview 'ls -a {1}' --preview-window=right,60%,wrap" 
+   #export  FZF_COMPLETION_OPTS="--preview 'file=\$( readlink -f {1} ) && [[ \$(file --mime \$file | grep -q text/ ) ]] && batcat --style=full --color=always {1}' --preview-window=right,60%,wrap"  
+   #export  FZF_COMPLETION_OPTS="--preview 'preview_window.sh {1} ' --preview-window=right,60%,wrap"   
+   # export  FZF_COMPLETION_OPTS="--preview '\$( file --mime \$( readlink -f \$( eval echo  {1} ) ) | grep -q text )  && batcat --style=full --color=always \$( readlink -f \$( eval echo  {1} ) )' --preview-window=right,60%,wrap"    
+   #
+   export  FZF_COMPLETION_OPTS="--preview 'file=\$( readlink -f \$( eval echo  {1} ) ); \$( file --mime \$file | grep -q text )  && batcat --style=full --color=always \$file' --preview-window=right,60%,wrap"     
 
    #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+   #
+   #
    #export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs  -g '!.git' --hidden'
 
 
