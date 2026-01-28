@@ -382,13 +382,18 @@ if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
    bind -x '"\t": fzf_bash_completion' 
-   #export  FZF_COMPLETION_OPTS="--preview 'ls -a {1}' --preview-window=right,60%,wrap" 
-   #export  FZF_COMPLETION_OPTS="--preview 'file=\$( readlink -f {1} ) && [[ \$(file --mime \$file | grep -q text/ ) ]] && batcat --style=full --color=always {1}' --preview-window=right,60%,wrap"  
-   #export  FZF_COMPLETION_OPTS="--preview 'preview_window.sh {1} ' --preview-window=right,60%,wrap"   
-   # export  FZF_COMPLETION_OPTS="--preview '\$( file --mime \$( readlink -f \$( eval echo  {1} ) ) | grep -q text )  && batcat --style=full --color=always \$( readlink -f \$( eval echo  {1} ) )' --preview-window=right,60%,wrap"    
-   #
-   export  FZF_COMPLETION_OPTS="--preview 'file=\$( readlink -f \$( eval echo  {1} ) ); \$( file --mime \$file | grep -q text )  && batcat --style=full --color=always \$file' --preview-window=right,60%,wrap"     
+ 
+   PREVIEW_CMD=$( cat << EOF
+   --preview 'file=\$( readlink -f \$( eval echo  {1} ) ); 
+              \$( file --mime \$file | grep -E -q "us-ascii|utf-8" )  && batcat --style=full --color=always \$file; 
+              \$( file --mime \$file | grep -q directory )  && echo {1} && lsd -a1 \$file'
 
+   --preview-window=right,75%,wrap
+
+EOF
+   )
+   export  FZF_COMPLETION_OPTS=$PREVIEW_CMD
+ 
    #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
    #
    #
@@ -434,9 +439,7 @@ __prompt_command() {
 
 
    if [ $EXIT != 0 ]; then
-      #prompt="${RED} $ ${NOC}\]"        # Add red if exit code non 0
       prompt="\[\e[31m\]$ "        # Add red if exit code non 0
-      #prompt="$ "
    else 
       prompt='$ '
    fi
