@@ -84,9 +84,7 @@ UBUNTU_DEPS=(
    tcpdump
    ripgrep
    ranger 
-   python3-distutils
    python3-dev 
-   lazygit
    universal-ctags
    libssl-dev 
    libmbedtls-dev 
@@ -216,9 +214,6 @@ install_fzf () {
   git clone https://github.com/lincheney/fzf-tab-completion.git
 }
 
- install_fzf
- exit
-
 install_zoixide () {
 
    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
@@ -284,7 +279,10 @@ case "$OS_FAMILY" in
     ;;
 
   ubuntu*)  
-    install_debian_deps "${UBUNTU_DEPS[@]}"  ;;
+    install_debian_deps "${UBUNTU_DEPS[@]}" 
+    install_lazy_git_debian 
+
+    ;;
   *)
 esac
 

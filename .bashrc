@@ -387,7 +387,7 @@ if [ -f ~/.fzf.bash ]; then
    --multi
    --preview 'file=\$( readlink -f \$( eval echo  {1} ) ); 
              [ -f "\$file" ] && \$( file --mime \$file | grep -E -q "us-ascii|utf-8" )  && batcat --style=full --color=always \$file; 
-             [ -d "\$file" ] && \$( file --mime \$file | grep -q directory )  && echo {1} && lsd -a1 \$file;
+             [ -d "\$file" ] && \$( file --mime \$file | grep -q directory )  && echo {1} && lsd -al \$file;
              [ ! -e "\$file" ] && echo {1}'
 
    --preview-window=right,75%,wrap
