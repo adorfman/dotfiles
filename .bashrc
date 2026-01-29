@@ -377,22 +377,27 @@ parse_perlbrew() {
 # NPM stuff
 export PATH=~/.npm-global/bin:$PATH
 
-# Fuzzy finder
+# Fuzzy finder auto complete
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
    bind -x '"\t": fzf_bash_completion' 
  
    PREVIEW_CMD=$( cat << EOF
+   --multi
    --preview 'file=\$( readlink -f \$( eval echo  {1} ) ); 
-              \$( file --mime \$file | grep -E -q "us-ascii|utf-8" )  && batcat --style=full --color=always \$file; 
-              \$( file --mime \$file | grep -q directory )  && echo {1} && lsd -a1 \$file'
+             [ -f "\$file" ] && \$( file --mime \$file | grep -E -q "us-ascii|utf-8" )  && batcat --style=full --color=always \$file; 
+             [ -d "\$file" ] && \$( file --mime \$file | grep -q directory )  && echo {1} && lsd -a1 \$file;
+             [ ! -e "\$file" ] && echo {1}'
 
    --preview-window=right,75%,wrap
 
 EOF
    )
-   export  FZF_COMPLETION_OPTS=$PREVIEW_CMD
+   #unset  FZF_DEFAULT_OPTS
+   #unset FZF_COMPLETION_OPTS
+   export FZF_DEFAULT_OPTS=$PREVIEW_CMD
+   export FZF_COMPLETION_OPTS=$PREVIEW_CMD
  
    #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
    #
@@ -408,11 +413,23 @@ frg() {
       --smart-case  --ignore-vcs  -g '!.git' --hidden "$@" | \
    fzf --delimiter ':' --preview 'batcat --style=full --color=always --highlight-line {2} {1}' \
        --preview-window '~4,+{2}+4/3,<80(up)' \
-       --with-nth=1,2 --accept-nth=1
+       --with-nth=1,2 --accept-nth=1 \
+       --bind 'enter:become(vim {1})'
 
 }
 
 export -f frg 
+
+ssh_fzf() {
+  local host
+  host=$(cat ~/.ssh/config ~/.ssh/known_hosts | grep -E '^(Host|Host|[^#])' | awk '{print $2}' | sort -u | fzf)
+  [[ -n $host ]] && ssh "$host"
+}
+
+export -f ssh_fzf
+
+
+export PATH=~/git-fuzzy/bin:$PATH 
 
 # Go dev
 export GOROOT=/usr/local/go

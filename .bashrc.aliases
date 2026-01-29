@@ -64,6 +64,10 @@ alias gc='git commit -v'
 alias gcamd='git commit --amend'
 alias gcm='git commit -v -m'
 
+# git-fuzzy
+alias gfl='git fuzzy log'
+alias gfb='git fuzzy branch'
+
 gsue() {
     git config --global user.name "$1"
     git config --global user.email "$2"

@@ -221,6 +221,12 @@ install_zoixide () {
 
 }
 
+install_git_fuzzy () {
+
+   git clone https://github.com/bigH/git-fuzzy.git
+
+}  
+
 install_lazy_git_debian() {
 
   if [[ -f "/usr/local/bin/lazygit" ]]; then
