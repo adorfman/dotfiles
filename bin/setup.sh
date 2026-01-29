@@ -64,6 +64,8 @@ DEBIAN_DEPS=(
    universal-ctags
    libssl-dev 
    libmbedtls-dev
+   bc
+   lsd
 );
 
 UBUNTU_DEPS=(
@@ -88,6 +90,8 @@ UBUNTU_DEPS=(
    universal-ctags
    libssl-dev 
    libmbedtls-dev 
+   bc 
+   lsd
 ); 
 
 install_redhat_deps () {
@@ -223,9 +227,29 @@ install_zoixide () {
 
 install_git_fuzzy () {
 
+   if [[ -f "git-fuzzy/.install_completed" ]]; then
+     echo "git-fuzzy already install"
+     return
+   fi
+
    git clone https://github.com/bigH/git-fuzzy.git
 
+   touch git-fuzzy/.install_completed  
+
 }  
+
+install_fzf_tab_completion () { 
+
+  if [[ -f "fzf-tab-completion/.install_completed" ]]; then
+    echo "fzf-tab-completion already install"
+    return
+  fi 
+
+  git clone  https://github.com/lincheney/fzf-tab-completion.git
+
+  touch fzf-tab-completion/.install_completed
+
+}
 
 install_lazy_git_debian() {
 
@@ -270,6 +294,8 @@ pushd ~/
 install_vim
 install_fzf
 install_zoixide
+install_git_fuzzy
+install_fzf_tab_completion
 
 dotfiles/bin/dfm
 
