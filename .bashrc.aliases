@@ -92,4 +92,6 @@ alias wiki='vim -c '\'':VimwikiIndex'\'''
 
 alias lg='lazygit'
 
+alias vcfind='find . -type f  ! -wholename '\''*/.git/*'\'''
+
 return 0

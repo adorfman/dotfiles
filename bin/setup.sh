@@ -66,6 +66,7 @@ DEBIAN_DEPS=(
    libmbedtls-dev
    bc
    lsd
+   btop
 );
 
 UBUNTU_DEPS=(
@@ -90,6 +91,7 @@ UBUNTU_DEPS=(
    libmbedtls-dev 
    bc 
    lsd
+   btop
 ); 
 
 install_redhat_deps () {
