@@ -88,7 +88,7 @@ alias ttn='tmux new -s'
 alias tl='tmux list-sessions'
 
 # auto open vim wiki
-alias wiki='vim -c '\'':VimwikiIndex'\'''
+alias wiki='vim -c '\'':cd ~/vimwiki'\'' -c '\'':VimwikiIndex'\'''
 
 alias lg='lazygit'
 
