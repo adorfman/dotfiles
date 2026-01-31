@@ -199,13 +199,15 @@ fun InitalizeVimBuffer()
     nnoremap <leader>vn :vnew <CR>
 
     nnoremap <leader>s :split <CR>
-    nnoremap <leader>v :vsplit <CR> 
+    nnoremap <leader>v :vsplit <CR>
 
     tnoremap <Esc> <C-\><C-n>
 
-    nnoremap <leader>tm :terminal <CR>  
+    nnoremap <leader>tm :terminal<CR>
 
     nnoremap <leader>tr :keepalt file
+
+    nnoremap <leader>ft :FloatermNew<CR>
 
     if &filetype == "perl"
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
@@ -230,7 +232,6 @@ augroup custom_macros
     autocmd BufEnter * call InitalizeVimBuffer()
 augroup END
 
-"if filereadable(expand("~/.vim/plugged/vimwiki/autoload/vimwiki/base.vim"))
 
 augroup vimwiki_auto_stuff
   au!
@@ -242,6 +243,12 @@ augroup vimwiki_auto_stuff
 
 augroup END
 
-autocmd  TerminalOpen * setlocal nonumber norelativenumber
+"autocmd TerminalOpen  * setlocal nonumber norelativenumber
+"autocmd TerminalOpen,BufEnter term://*  setlocal nonumber norelativenumber 
+autocmd  TerminalOpen,BufEnter * if &buftype == 'terminal' | setlocal nonumber norelativenumber | endif
+"augroup TerminalSetup
+"  autocmd!
+"  autocmd TerminalOpen * setlocal nonumber norelativenumber cursorline
+"augroup END
 
 "endif
