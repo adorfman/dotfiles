@@ -176,7 +176,8 @@ fun InitalizeVimBuffer()
     nnoremap <leader>r :Ranger<CR>
     nnoremap <leader>b :Buffers<CR>
     nnoremap <leader>F :Files<CR> 
-    nnoremap <leader>g :Rg<CR>  
+    nnoremap <leader>g :Rg<CR>
+    nnoremap <leader>wg :cd ~/vimwiki \| Rg<CR>
 
     :imap jj <Esc> 
 
@@ -235,7 +236,7 @@ augroup END
 
 augroup vimwiki_auto_stuff
   au!
-  au! BufRead ~/vimwiki/index.wiki !git -C ~/vimwiki pull origin master
+  au! BufRead ~/vimwiki/index.wiki,~/vimwiki/diary/diary.wiki !git -C ~/vimwiki pull origin master
   au! BufWritePost ~/vimwiki/*
      \ !git -C ~/vimwiki add "%"; 
      \ git -C ~/vimwiki commit -m "Auto commit of %:t." "%";
