@@ -244,6 +244,8 @@ augroup vimwiki_auto_stuff
 
 augroup END
 
+"set lcd so fzf-vim with search from the path of the current open file
+autocmd BufEnter ~/vimwiki/* silent! lcd %:p:h
 "autocmd TerminalOpen  * setlocal nonumber norelativenumber
 "autocmd TerminalOpen,BufEnter term://*  setlocal nonumber norelativenumber 
 autocmd  TerminalOpen,BufEnter * if &buftype == 'terminal' | setlocal nonumber norelativenumber | endif
