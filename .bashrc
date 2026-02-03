@@ -431,6 +431,27 @@ export -f ssh_fzf
 
 export PATH=~/git-fuzzy/bin:$PATH 
 
+# Python 
+
+function virtualenv_info(){
+    # Get Virtual Env
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the venv project directory name
+        project_dir="${VIRTUAL_ENV%/*}"
+        project="${project_dir##*/}"
+    else
+        # In case you don't have one activated
+        project=''
+    fi
+    [[ -n "$project" ]] && echo -n "(venv:$project)"
+}
+
+# disable the default virtualenv prompt change
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+VENV="\$(virtualenv_info)";
+
+
 # Go dev
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/golib
@@ -461,7 +482,7 @@ __prompt_command() {
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] \$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]" 
+   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]" 
 
 
 }
