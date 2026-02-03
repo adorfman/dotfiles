@@ -23,6 +23,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'voldikss/vim-floaterm'
   Plug 'vim-python/python-syntax'
+  Plug 'cespare/vim-toml', { 'branch': 'main' }
   call plug#end() 
 
 endif  
