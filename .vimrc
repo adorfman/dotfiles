@@ -209,7 +209,7 @@ fun InitalizeVimBuffer()
 
     nnoremap <leader>tr :keepalt file
 
-    nnoremap <leader>ft :FloatermNew<CR>
+    nnoremap <leader>ft :FloatermNew --autoclose=2<CR>
 
     if &filetype == "perl"
         inoremap IFB if (  ) {<CR>}<Esc>O <Esc>xk$3hi
