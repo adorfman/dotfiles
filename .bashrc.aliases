@@ -73,6 +73,16 @@ gsue() {
     git config --global user.email "$2"
 }
 
+## Python ## 
+
+new-venv() {
+    local name="${1:-.venv}"
+    local python_version="${2:-3}"
+    python${python_version} -m venv "$name" &&
+    source "$name/bin/activate" &&
+    python3 -m pip install --upgrade pip wheel
+}
+
 # Tmux
 
 # Attaches tmux to a session (example: ta portal)
