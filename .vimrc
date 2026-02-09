@@ -234,7 +234,7 @@ augroup custom_macros
     autocmd BufEnter * call InitalizeVimBuffer()
 augroup END
 
-# Automatically delete trailing write space on write
+" Automatically delete trailing write space on write
 fun StripTrailingWhitespaces()
   let l = line('.')
   let c = col('.')
@@ -254,6 +254,31 @@ augroup vimwiki_auto_stuff
      \ git -C ~/vimwiki push origin HEAD
 
 augroup END
+
+function! InsertCodeBlock(lang)
+    " Get the visual selection range
+    let start_line = line("'<")
+    let end_line = line("'>")
+
+    " Insert opening fence with language
+    call append(start_line - 1, '{{{' .. a:lang)
+
+    " Insert closing fence after the last selected line
+    call append(end_line, '}}}')
+endfunction
+
+" Map to a key combination (e.g., <leader>c)
+xnoremap <leader>cr :<c-u>call InsertCodeBlock('rust')<CR>
+xnoremap <leader>cp :<c-u>call InsertCodeBlock('python')<CR>
+xnoremap <leader>cj :<c-u>call InsertCodeBlock('javascript')<CR>
+xnoremap <leader>cy :<c-u>call InsertCodeBlock('yaml')<CR>
+xnoremap <leader>cj :<c-u>call InsertCodeBlock('json')<CR>
+xnoremap <leader>cb :<c-u>call InsertCodeBlock('')<CR>
+
+
+
+
+
 
 "set lcd so fzf-vim with search from the path of the current open file
 autocmd BufEnter ~/vimwiki/* silent! lcd %:p:h
