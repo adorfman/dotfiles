@@ -2,10 +2,10 @@
 if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
 
-  Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } } 
+  Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'francoiscabrol/ranger.vim'
-  Plug 'tpope/vim-fugitive' 
+  Plug 'tpope/vim-fugitive'
   Plug 'itchyny/lightline.vim'
   Plug 'vimwiki/vimwiki'
   Plug 'ap/vim-css-color'
@@ -13,7 +13,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'itchyny/vim-gitbranch'
   Plug 'powerline/powerline-fonts'
   Plug 'airblade/vim-gitgutter'
-   
+
 " Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
   " Color themes
@@ -24,9 +24,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'voldikss/vim-floaterm'
   Plug 'vim-python/python-syntax'
   Plug 'cespare/vim-toml', { 'branch': 'main' }
-  call plug#end() 
+  call plug#end()
 
-endif  
+endif
 
 if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
@@ -35,10 +35,10 @@ if exists('$SUDO_USER')
 else
   set directory=~/.vim/tmp//    " keep swap files out of the way
   set directory+=.
-  set backupdir=~/.vim/tmp// 
-  set backupdir+=.  
-  set undodir=~/.vim/tmp// 
-  set undodir+=.  
+  set backupdir=~/.vim/tmp//
+  set backupdir+=.
+  set undodir=~/.vim/tmp//
+  set undodir+=.
 endif
 
 if has('mksession')
@@ -54,7 +54,7 @@ set hidden " keep buffers with changes in the background
 set tw=120
 set tabstop=4
 set autoindent                 " maintain indent of current line
-set backspace=indent,start,eol " allow unrestricted backspacing in insert mode 
+set backspace=indent,start,eol " allow unrestricted backspacing in insert mode
 set showmatch
 set incsearch
 set hls  "highlight search
@@ -65,14 +65,14 @@ set autoindent
 set smartindent
 set ruler
 set virtualedit=all
-set wildmenu 
+set wildmenu
 set lazyredraw  " don't bother updating screen during macro playback
 set visualbell t_vb=
 set splitright
 set splitbelow
 set encoding=UTF-8
 set spell spelllang=en_us
-filetype on     
+filetype on
 
 set shiftwidth=8
 set expandtab
@@ -91,16 +91,16 @@ endfunction
 nmap <F9> mz:execute TabToggle()<CR>'z
 
 set list lcs=trail:·,tab:»·
-"set listchars=tab:~\ ,trail:* 
+"set listchars=tab:~\ ,trail:*
 
 " UTF-8 support
 set encoding=utf-8
-set fileencoding=utf-8 
+set fileencoding=utf-8
 set background=dark
 
 set nocompatible
 filetype plugin on
-syntax on 
+syntax on
 silent! colorscheme nightfly
 
 if has('windows')
@@ -125,13 +125,13 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'gitbranch': "gitbranch#name",
-      \   'gitbranch2' : 'LightlineFugitive' 
+      \   'gitbranch2' : 'LightlineFugitive'
       \ },
       \ 'component' : {
       \    'vicon' : "⎇ "
       \ },
        \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" } 
+       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
     \ }
 
 "   ☰      
@@ -176,16 +176,16 @@ fun InitalizeVimBuffer()
 
     nnoremap <leader>r :Ranger<CR>
     nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>F :Files<CR> 
+    nnoremap <leader>F :Files<CR>
     nnoremap <leader>g :Rg<CR>
     nnoremap <leader>wg :cd ~/vimwiki \| Rg<CR>
 
-    :imap jj <Esc> 
+    :imap jj <Esc>
 
     nnoremap <C-J> <C-W><C-J>
     nnoremap <C-K> <C-W><C-K>
     nnoremap <C-L> <C-W><C-L>
-    nnoremap <C-H> <C-W><C-H> 
+    nnoremap <C-H> <C-W><C-H>
 
     " Move between tabs with Shift-] and Shift-[, create new tabs with \t
     nnoremap <leader>[ :tabp <CR>
@@ -216,7 +216,7 @@ fun InitalizeVimBuffer()
         inoremap FOB for my $ (  ) {<CR>}<Esc>O <Esc>xk$6hi
         inoremap WHB while (  ) {<CR>}<Esc>O <Esc>xk$3hi
         inoremap PPP package ;<CR><CR>use warnings;<CR>use strict;<CR><CR>1;<Esc>Hwi
-        inoremap PSUB sub {<CR><Esc>0i  my () = @_;<CR><CR><Esc>0i}<Esc>kkkwi 
+        inoremap PSUB sub {<CR><Esc>0i  my () = @_;<CR><CR><Esc>0i}<Esc>kkkwi
         map <F12> :!perl -c %<CR>
 
         nnoremap <leader>PP :read ~/.vim/snippets/perl/package<CR>
@@ -234,12 +234,22 @@ augroup custom_macros
     autocmd BufEnter * call InitalizeVimBuffer()
 augroup END
 
+# Automatically delete trailing write space on write
+fun StripTrailingWhitespaces()
+  let l = line('.')
+  let c = col('.')
+  %s/\s\+$//e
+  call cursor(l, c)
+endfunction
+
+autocmd BufWritePre * :call StripTrailingWhitespaces()
+
 
 augroup vimwiki_auto_stuff
   au!
   au! BufRead ~/vimwiki/index.wiki,~/vimwiki/diary/diary.wiki !git -C ~/vimwiki pull origin master
   au! BufWritePost ~/vimwiki/*
-     \ !git -C ~/vimwiki add "%:p"; 
+     \ !git -C ~/vimwiki add "%:p";
      \ git -C ~/vimwiki commit -m "Auto commit of %:t." "%:p";
      \ git -C ~/vimwiki push origin HEAD
 
@@ -249,7 +259,7 @@ augroup END
 autocmd BufEnter ~/vimwiki/* silent! lcd %:p:h
 autocmd FileType vimwiki hi vimwikiCodeBlock ctermfg=yellow ctermbg=black guifg=yellow guibg=black
 "autocmd TerminalOpen  * setlocal nonumber norelativenumber
-"autocmd TerminalOpen,BufEnter term://*  setlocal nonumber norelativenumber 
+"autocmd TerminalOpen,BufEnter term://*  setlocal nonumber norelativenumber
 autocmd  TerminalOpen,BufEnter * if &buftype == 'terminal' | setlocal nonumber norelativenumber | endif
 "augroup TerminalSetup
 "  autocmd!
