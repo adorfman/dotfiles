@@ -75,7 +75,7 @@ set -o noclobber
 set -o ignoreeof
 #set -o nounset
 #set -o xtrace          # useful for debuging
-# 
+#
 # # Enable options:
 shopt -s cdspell
 shopt -s cdable_vars
@@ -98,7 +98,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) 
+    xterm-color)
         color_prompt=yes;;
 esac
 
@@ -124,7 +124,7 @@ fi
 #     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 # fi
 unset color_prompt force_color_prompt
-# 
+#
 # # If this is an xterm set the title to user@host:dir
 # case "$TERM" in
 # xterm*|rxvt*)
@@ -147,8 +147,8 @@ fi
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
-    if [ -f  ~/.ls_colors ]; then 
-        . ~/.ls_colors; 
+    if [ -f  ~/.ls_colors ]; then
+        . ~/.ls_colors;
     fi
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
@@ -180,15 +180,15 @@ export PATH=$HOME/bin:./script:$HOME/.local/bin:$PATH
 # TMUX with utf-8 support
 alias tmux='tmux -u'
 
-if [ ! -d ${HOME}/tmp ]; then 
+if [ ! -d ${HOME}/tmp ]; then
     mkdir ${HOME}/tmp
 fi
 
 # Vim swap file directory
-if [ ! -d ${HOME}/.vim/tmp ]; then 
+if [ ! -d ${HOME}/.vim/tmp ]; then
     mkdir ${HOME}/.vim/tmp
-fi 
-      
+fi
+
 ## Handle screen windows ##
 
 # automatically name our screen window to the current host
@@ -207,21 +207,21 @@ if [ $SSH_AUTH_SOCK ]; then
     screen_ssh_agent=${HOME}/tmp/ssh-agent-screen
     export screen_ssh_agent
 
-    if [[ "$TERM" != screen* ]] && [ "${SSH_AUTH_SOCK}" != "$screen_ssh_agent" ]; then 
+    if [[ "$TERM" != screen* ]] && [ "${SSH_AUTH_SOCK}" != "$screen_ssh_agent" ]; then
        ln -snf ${SSH_AUTH_SOCK} ${screen_ssh_agent}
     fi
 fi
 
-if [[ $TERM == screen* ]]; then  
+if [[ $TERM == screen* ]]; then
     SSH_AUTH_SOCK=${screen_ssh_agent}
-    export SSH_AUTH_SOCK 
+    export SSH_AUTH_SOCK
 fi
 
 # Set TERM once we are done configuring for screen/tmux
-# This probably isn't 'correct' but vim doesn't recognize 
+# This probably isn't 'correct' but vim doesn't recognize
 # color support for screen-256color
-if [[ $TERM == screen* ]]; then 
-    export TERM=xterm-256color  
+if [[ $TERM == screen* ]]; then
+    export TERM=xterm-256color
 fi
 
 
@@ -285,7 +285,7 @@ complete -f -o default -X '!*.+(ogg|OGG)' ogg123
 parse_git_branch() {
 
     if git ls-files ./ --error-unmatch >/dev/null 2>/dev/null ; then
-        branch=$( git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' ) 
+        branch=$( git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' )
 
         status=$(git status | grep -e "^.*Your branch is")
         mod=$(git status -s --porcelain | grep -e  "^\?\?"| grep -E "^.{0,1}[RM]"|wc -l)
@@ -304,27 +304,27 @@ parse_git_branch() {
         fi
 
 
-        if [ $mod -gt 0 ] ; then 
+        if [ $mod -gt 0 ] ; then
             mod="$HRED\u2248$mod$NOC"
         else
             mod="$NOC\u2248$WHITE$mod$NOC"
         fi
-        if [ $add -gt 0 ] ; then 
+        if [ $add -gt 0 ] ; then
             add="$HRED$add$NOC"
         else
             add="$NOC$WHITE$add$NOC"
         fi
-        if [ $del -gt 0 ] ; then 
+        if [ $del -gt 0 ] ; then
             del="$HRED$del$NOC"
         else
             del="$NOC$WHITE$del$NOC"
         fi
 
-        if [ $unk -gt 0 ] ; then 
+        if [ $unk -gt 0 ] ; then
             unk="?$CYAN$unk$NOC"
         else
             unk=""
-        fi   
+        fi
 
         gitpart="  [$branch]$NOC $mod \u002b$add \u2212$del $unk $rstat"
 
@@ -334,15 +334,15 @@ parse_git_branch() {
 }
 
 ## Perlbrew stuff ##
-if [ -f ~/perl5/perlbrew/etc/bashrc ]; then 
+if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
   source ~/perl5/perlbrew/etc/bashrc
-fi 
+fi
 
 alias pb="perlbrew"
 alias pbl="perlbrew list"
 alias pbu="perlbrew use"
 alias pbe="perlbrew exec --with "
-#alias pblib="perlbrew use lib ${PERLBREW_PERL}@" 
+#alias pblib="perlbrew use lib ${PERLBREW_PERL}@"
 
 perllibadd() {
     mod_dir=`pwd`
@@ -355,7 +355,7 @@ perllibadd() {
 }
 
 pblib() {
-  perlbrew use ${PERLBREW_PERL}@${1} 
+  perlbrew use ${PERLBREW_PERL}@${1}
 }
 
 parse_perlbrew() {
@@ -368,12 +368,12 @@ parse_perlbrew() {
    if [ $PERLBREW_PERL ]; then
      perlbrew list |  sed -e '/^\s\+[^*]/d' -e 's/* perl-\([^[:space:]]*\).*/p(\1)/'
      #perlbrew list |  sed -e '/^[^*]/d' -e 's/* perl-\(.*\)\s*/p(\1)/'
-   else 
+   else
      perl -e 'print $^V'
    fi
 
 }
- 
+
 # NPM stuff
 export PATH=~/.npm-global/bin:$PATH
 
@@ -381,12 +381,12 @@ export PATH=~/.npm-global/bin:$PATH
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
-   bind -x '"\t": fzf_bash_completion' 
- 
+   bind -x '"\t": fzf_bash_completion'
+
    PREVIEW_CMD=$( cat << EOF
    --multi
-   --preview 'file=\$( readlink -f \$( eval echo  {1} ) ); 
-             [ -f "\$file" ] && \$( file --mime \$file | grep -E -q "us-ascii|utf-8" )  && batcat --style=full --color=always \$file; 
+   --preview 'file=\$( readlink -f \$( eval echo  {1} ) );
+             [ -f "\$file" ] && \$( file --mime \$file | grep -E -q "us-ascii|utf-8" )  && batcat --style=full --color=always \$file;
              [ -d "\$file" ] && \$( file --mime \$file | grep -q directory )  && echo {1} && lsd -al \$file;
              [ ! -e "\$file" ] && echo {1}'
 
@@ -398,7 +398,7 @@ EOF
    #unset FZF_COMPLETION_OPTS
    export FZF_DEFAULT_OPTS=$PREVIEW_CMD
    export FZF_COMPLETION_OPTS=$PREVIEW_CMD
- 
+
    #export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
    #
    #
@@ -418,7 +418,7 @@ frg() {
 
 }
 
-export -f frg 
+export -f frg
 
 ssh_fzf() {
   local host
@@ -429,9 +429,9 @@ ssh_fzf() {
 export -f ssh_fzf
 
 
-export PATH=~/git-fuzzy/bin:$PATH 
+export PATH=~/git-fuzzy/bin:$PATH
 
-# Python 
+# Python
 
 function virtualenv_info(){
     # Get Virtual Env
@@ -464,11 +464,15 @@ mkdir -p $GOCODE/bin
 
 GOBIN=$GOROOT/bin:$GOCODE/bin:$GOPATH/bin
 
-export GOPATH=$GOPATH:$GOCODE 
+export GOPATH=$GOPATH:$GOCODE
 export PATH=$GOBIN:$PATH
 
+# Rust
 
-# Final prompt 
+source "$HOME/.cargo/env"
+
+
+# Final prompt
 PROMPT_COMMAND=__prompt_command
 
 __prompt_command() {
@@ -478,22 +482,22 @@ __prompt_command() {
 
    if [ $EXIT != 0 ]; then
       prompt="\[\e[31m\]$ "        # Add red if exit code non 0
-   else 
+   else
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]" 
+   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]"
 
 
 }
 
-if [ -f ~/.bashrc.load ]; then 
+if [ -f ~/.bashrc.load ]; then
     . $HOME/.bashrc.load
 fi
 
 if [ -f $HOME/.bashrc.aliases ]; then
-    . $HOME/.bashrc.aliases 
-fi 
+    . $HOME/.bashrc.aliases
+fi
 
 
 if [ -f ~/.bashrc.$HOSTNAME ]; then
@@ -506,8 +510,9 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 #    . ~/.bashrc.${HOSTNAME%%.*}
 #fi
 # Zoxide
-eval "$(zoxide init bash --cmd cd )" 
+eval "$(zoxide init bash --cmd cd )"
 
 return 0
 
 
+. "$HOME/.cargo/env"
