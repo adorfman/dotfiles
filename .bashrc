@@ -468,9 +468,12 @@ export GOPATH=$GOPATH:$GOCODE
 export PATH=$GOBIN:$PATH
 
 # Rust
-
 source "$HOME/.cargo/env"
 
+# add me to your ~/.bashrc or ~/.zshrc or whatnot
+alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cut -d " " -f 1 | emoji-fzf get'
+# to copy to xclip system keyboard (on mac use pbcopy) after selecting
+# emoj | xclip -selection c
 
 # Final prompt
 PROMPT_COMMAND=__prompt_command
