@@ -468,7 +468,9 @@ export GOPATH=$GOPATH:$GOCODE
 export PATH=$GOBIN:$PATH
 
 # Rust
-source "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env"  ]; then
+    source "$HOME/.cargo/env"
+fi
 
 # add me to your ~/.bashrc or ~/.zshrc or whatnot
 alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cut -d " " -f 1 | emoji-fzf get'
