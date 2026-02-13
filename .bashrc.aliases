@@ -39,6 +39,8 @@ alias gll='git log --graph --pretty=oneline --abbrev-commit'
 alias gnew='git log HEAD@{1}..HEAD@{0}' # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
 alias gwc='git whatchanged'
 
+alias gnb='git checkout -b'
+
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gdt='git difftool'
@@ -73,7 +75,7 @@ gsue() {
     git config --global user.email "$2"
 }
 
-## Python ## 
+## Python ##
 
 new-venv() {
     local name="${1:-.venv}"
