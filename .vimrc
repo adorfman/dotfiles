@@ -12,7 +12,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'chrisbra/Colorizer'
   Plug 'itchyny/vim-gitbranch'
   Plug 'powerline/powerline-fonts'
-  Plug 'airblade/vim-gitgutter'
+  Plug 'airblade/vim-gitgutter', { 'branch': 'main' }
 
 " Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
@@ -24,6 +24,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'voldikss/vim-floaterm'
   Plug 'vim-python/python-syntax'
   Plug 'cespare/vim-toml', { 'branch': 'main' }
+  Plug 'HerringtonDarkholme/yats.vim'
+
+  Plug 'dense-analysis/ale'
   call plug#end()
 
 endif
@@ -267,12 +270,11 @@ function! InsertCodeBlock(lang)
     call append(end_line, '}}}')
 endfunction
 
-" Map to a key combination (e.g., <leader>c)
 xnoremap <leader>cr :<c-u>call InsertCodeBlock('rust')<CR>
 xnoremap <leader>cp :<c-u>call InsertCodeBlock('python')<CR>
 xnoremap <leader>cj :<c-u>call InsertCodeBlock('javascript')<CR>
 xnoremap <leader>cy :<c-u>call InsertCodeBlock('yaml')<CR>
-xnoremap <leader>cj :<c-u>call InsertCodeBlock('json')<CR>
+xnoremap <leader>cs :<c-u>call InsertCodeBlock('json')<CR>
 xnoremap <leader>cb :<c-u>call InsertCodeBlock('')<CR>
 
 
