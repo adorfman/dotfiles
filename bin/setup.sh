@@ -16,53 +16,53 @@ case "$ID" in
 esac
 
 REDHAT_DEPS=(
-   autoconf 
+   autoconf
    bind-utils
    lsof
-   libtool 
-   automake  
-   ctags 
-   git 
+   libtool
+   automake
+   ctags
+   git
    tcl-devel
-   ruby 
+   ruby
    ruby-devel
-   lua 
+   lua
    lua-devel
-   luajit 
-   luajit-devel 
-   python 
+   luajit
+   luajit-devel
+   python
    python-devel
-   perl 
-   perl-devel 
-   perl-ExtUtils-ParseXS 
-   perl-ExtUtils-XSpp 
+   perl
+   perl-devel
+   perl-ExtUtils-ParseXS
+   perl-ExtUtils-XSpp
    perl-ExtUtils-CBuilder
    perl-ExtUtils-Embed
    the_silver_searcher
-   strace 
+   strace
 );
 
 DEBIAN_DEPS=(
-   sudo 
-   vim 
-   build-essential 
-#   ctags 
-   locales 
-   automake 
+   sudo
+   vim
+   build-essential
+#   ctags
+   locales
+   automake
    cmake
-   libtool 
-   libncurses-dev 
-   curl 
-   dnsutils 
-   strace 
-   silversearcher-ag 
+   libtool
+   libncurses-dev
+   curl
+   dnsutils
+   strace
+   silversearcher-ag
    tcpdump
    ripgrep
    ranger
    python3-distutils
    python3-dev
    universal-ctags
-   libssl-dev 
+   libssl-dev
    libmbedtls-dev
    bc
    lsd
@@ -70,29 +70,29 @@ DEBIAN_DEPS=(
 );
 
 UBUNTU_DEPS=(
-   sudo 
-   vim 
+   sudo
+   vim
    build-essential
    exuberant-ctags
-   locales 
-   automake 
-   libtool 
-   libncurses-dev 
-   curl 
-   dnsutils 
-   strace 
-   silversearcher-ag 
+   locales
+   automake
+   libtool
+   libncurses-dev
+   curl
+   dnsutils
+   strace
+   silversearcher-ag
    tcpdump
    ripgrep
-   ranger 
-   python3-dev 
+   ranger
+   python3-dev
    universal-ctags
-   libssl-dev 
-   libmbedtls-dev 
-   bc 
+   libssl-dev
+   libmbedtls-dev
+   bc
    lsd
    btop
-); 
+);
 
 install_redhat_deps () {
   echo "Installing Redhate packages"
@@ -117,7 +117,7 @@ install_libevent () {
      return
   fi
 
-  if [[ ! -d "libevent" ]]; then 
+  if [[ ! -d "libevent" ]]; then
       git clone https://github.com/libevent/libevent.git
   fi
 
@@ -159,7 +159,7 @@ install_tmux () {
      echo "tmux already install"
      return
   fi
-  
+
   curl -LOk  https://github.com/tmux/tmux/releases/download/3.1/tmux-3.1.tar.gz
   tar -zxvf tmux-3.1.tar.gz
   pushd tmux-3.1/
@@ -179,8 +179,9 @@ install_vim () {
   fi
 
   git clone https://github.com/vim/vim.git
-   
+
   pushd vim
+  make clean
   ./configure --with-features=huge \
               --enable-multibyte \
               --enable-rubyinterp \
@@ -189,10 +190,12 @@ install_vim () {
               --with-python3-command=/usr/bin/python3 \
               --without-x \
               --enable-perlinterp \
-              --enable-luainterp
-   
+              --enable-luainterp \
+              --prefix=$HOME/.local
+
+
   make
-  sudo make install
+  make install
 
   touch .install_completed
   popd
@@ -204,12 +207,12 @@ install_fzf () {
   if [[ -f ".fzf/.install_completed" ]]; then
      echo "fzf already install"
      return
-  fi 
+  fi
 
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   pushd .fzf
-  ./install 
-  touch .install_completed 
+  ./install
+  touch .install_completed
 
   popd
 
@@ -231,16 +234,16 @@ install_git_fuzzy () {
 
    git clone https://github.com/bigH/git-fuzzy.git
 
-   touch git-fuzzy/.install_completed  
+   touch git-fuzzy/.install_completed
 
-}  
+}
 
-install_fzf_tab_completion () { 
+install_fzf_tab_completion () {
 
   if [[ -f "fzf-tab-completion/.install_completed" ]]; then
     echo "fzf-tab-completion already install"
     return
-  fi 
+  fi
 
   git clone  https://github.com/lincheney/fzf-tab-completion.git
 
@@ -264,9 +267,9 @@ install_lazy_git_debian() {
 
 
 case "$OS_FAMILY" in
-  redhat*) 
+  redhat*)
     install_redhat_deps ;;
-  debian*)  
+  debian*)
     install_debian_deps "${DEBIAN_DEPS[@]}"
     VERSION=$(cat /etc/debian_version)
 
@@ -274,15 +277,15 @@ case "$OS_FAMILY" in
        sudo apt-get install -y tmux lazygit
     else
        install_libevent
-       install_tmux 
+       install_tmux
        install_lazy_git_debian
     fi
 
     ;;
 
-  ubuntu*)  
-    install_debian_deps "${UBUNTU_DEPS[@]}" 
-    install_lazy_git_debian 
+  ubuntu*)
+    install_debian_deps "${UBUNTU_DEPS[@]}"
+    install_lazy_git_debian
 
     ;;
   *)

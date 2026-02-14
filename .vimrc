@@ -27,6 +27,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'HerringtonDarkholme/yats.vim'
 
   Plug 'dense-analysis/ale'
+
+  Plug 'davidhalter/jedi-vim'
+
   call plug#end()
 
 endif
@@ -312,3 +315,6 @@ command! -bang Emoj
 " Unfortunately doesn't bring you back to insert mode 😕
 map <C-e> :Emoj<CR>
 imap <C-e> <C-o><C-e>
+
+let g:ale_linters = {'python': ['pylint', 'flake8', 'mypy']}
+let g:ale_python_auto_virtualenv = 1
