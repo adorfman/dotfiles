@@ -318,3 +318,5 @@ imap <C-e> <C-o><C-e>
 
 let g:ale_linters = {'python': ['pylint', 'flake8', 'mypy']}
 let g:ale_python_auto_virtualenv = 1
+let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra'
+let g:ale_cpp_cc_options   = '-std=c++20 -Wall'
