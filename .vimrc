@@ -34,6 +34,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
 endif
 
+set nocompatible
+
 if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
   set nobackup
@@ -57,7 +59,8 @@ if has('termguicolors')
 endif
 
 set hidden " keep buffers with changes in the background
-set tw=120
+set tw=80
+set formatoptions-=t
 set tabstop=4
 set autoindent                 " maintain indent of current line
 set backspace=indent,start,eol " allow unrestricted backspacing in insert mode
@@ -79,6 +82,7 @@ set splitbelow
 set encoding=UTF-8
 set spell spelllang=en_us
 filetype on
+
 
 set shiftwidth=8
 set expandtab
@@ -104,7 +108,6 @@ set encoding=utf-8
 set fileencoding=utf-8
 set background=dark
 
-set nocompatible
 filetype plugin on
 syntax on
 silent! colorscheme nightfly
@@ -116,6 +119,7 @@ endif
 if has('vertsplit')
   set splitright                      " open vertical splits to the right of the current window
 endif
+
 
 " cleanup ranger buffers
 let g:ranger_on_exit = 'bw!'
@@ -320,3 +324,5 @@ let g:ale_linters = {'python': ['pylint', 'flake8', 'mypy']}
 let g:ale_python_auto_virtualenv = 1
 let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra'
 let g:ale_cpp_cc_options   = '-std=c++20 -Wall'
+
+
