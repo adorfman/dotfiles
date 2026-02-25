@@ -1,3 +1,5 @@
+alias mv='mv -i'
+
 # Moving around
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -105,5 +107,12 @@ alias wiki='vim -c '\'':cd ~/vimwiki'\'' -c '\'':VimwikiIndex'\'''
 alias lg='lazygit'
 
 alias vcfind='find . -type f  ! -wholename '\''*/.git/*'\'''
+
+# Kubernetes
+alias k='kubectl'
+alias kd='kubectl --kubeconfig=/home/adorfman/.kube/k3s-dev.yaml'
+
+alias h='helm'
+alias hd='helm --kubeconfig=/home/adorfman/.kube/k3s-dev.yaml'
 
 return 0

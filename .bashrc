@@ -381,7 +381,7 @@ export PATH=~/.npm-global/bin:$PATH
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
-   bind -x '"\t": fzf_bash_completion'
+   #bind -x '"\t": fzf_bash_completion'
 
    PREVIEW_CMD=$( cat << EOF
    --multi
@@ -516,6 +516,8 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 #fi
 # Zoxide
 eval "$(zoxide init bash --cmd cd )"
+
+source <(kubectl completion bash)
 
 return 0
 

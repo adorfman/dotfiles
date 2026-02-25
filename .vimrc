@@ -30,6 +30,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
   Plug 'davidhalter/jedi-vim'
 
+  Plug 'gauteh/vim-cppman'
+
   call plug#end()
 
 endif
@@ -203,8 +205,8 @@ fun InitalizeVimBuffer()
     nnoremap <leader>t :tabnew <CR>
 
     " Use Shift-J and Shift-K for page down/up like I could with arrows.
-    nnoremap <S-k> <C-u>
-    nnoremap <S-j> <C-d>
+    " nnoremap <S-k> <C-u>
+    " nnoremap <S-j> <C-d>
 
     " Create new window splits with \d and \D to mimic new windows in iTerm
     nnoremap <leader>sn :new <CR>
@@ -320,9 +322,13 @@ command! -bang Emoj
 map <C-e> :Emoj<CR>
 imap <C-e> <C-o><C-e>
 
-let g:ale_linters = {'python': ['pylint', 'flake8', 'mypy']}
+let g:ale_linters = {
+   \ 'python': ['pylint', 'flake8', 'mypy'],
+   \  'cpp': ['cc', 'gcc', 'clang']
+\}
 let g:ale_python_auto_virtualenv = 1
 let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra'
 let g:ale_cpp_cc_options   = '-std=c++20 -Wall'
 
+"autocmd FileType cpp setlocal keywordprg=cppman
 
