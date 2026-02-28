@@ -115,4 +115,7 @@ alias kd='kubectl --kubeconfig=/home/adorfman/.kube/k3s-dev.yaml'
 alias h='helm'
 alias hd='helm --kubeconfig=/home/adorfman/.kube/k3s-dev.yaml'
 
+# Vim
+alias v='vim'
+
 return 0
