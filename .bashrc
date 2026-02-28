@@ -381,7 +381,7 @@ export PATH=~/.npm-global/bin:$PATH
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
-   #bind -x '"\t": fzf_bash_completion'
+   bind -x '"\t": fzf_bash_completion'
 
    PREVIEW_CMD=$( cat << EOF
    --multi
@@ -477,13 +477,28 @@ alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cu
 # to copy to xclip system keyboard (on mac use pbcopy) after selecting
 # emoj | xclip -selection c
 
+
+
+source ~/.kubectx/completion/kubens.bash
+source ~/.kubectx/completion/kubectx.bash
+
+
 # Final prompt
 PROMPT_COMMAND=__prompt_command
+
 
 __prompt_command() {
 
    local EXIT="$?"
 
+   local KUBE_PS1='';
+   # make kube-ps1 work with custom prompt
+   #
+   if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
+     source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
+     _kube_ps1_prompt_update
+     KUBE_PS1="$(kube_ps1)"
+   fi
 
    if [ $EXIT != 0 ]; then
       prompt="\[\e[31m\]$ "        # Add red if exit code non 0
@@ -491,7 +506,7 @@ __prompt_command() {
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]"
+   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] ${KUBE_PS1}${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]"
 
 
 }
@@ -517,9 +532,9 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 # Zoxide
 eval "$(zoxide init bash --cmd cd )"
 
+# Kubernetes
 source <(kubectl completion bash)
 
 return 0
 
 
-. "$HOME/.cargo/env"
