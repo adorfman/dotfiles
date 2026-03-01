@@ -326,9 +326,9 @@ parse_git_branch() {
             unk=""
         fi
 
-        gitpart="  [$branch]$NOC $mod \u002b$add \u2212$del $unk $rstat"
+        gitpart=" [$branch]$NOC $mod \u002b$add \u2212$del $unk $rstat"
 
-        echo -e $gitpart;
+        echo " $(echo -e $gitpart)";
      fi
 
 }
@@ -443,7 +443,7 @@ function virtualenv_info(){
         # In case you don't have one activated
         project=''
     fi
-    [[ -n "$project" ]] && echo -n "(venv:$project)"
+    [[ -n "$project" ]] && echo -n " (venv:$project)"
 }
 
 # disable the default virtualenv prompt change
@@ -482,23 +482,31 @@ alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cu
 source ~/.kubectx/completion/kubens.bash
 source ~/.kubectx/completion/kubectx.bash
 
+if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
+  source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
+  _kube_ps1_prompt_update
+  KUBE_PS1=" \[\e[0m\]\$(kube_ps1)"
+else
+  KUBE_PS1=""
+  kube_ps1() {
+    echo -n ''
+  }
+  kubeoff() {
+     1
+  }
+fi
+
+kubeoff
 
 # Final prompt
 PROMPT_COMMAND=__prompt_command
 
+#if declare -F kubeoff &> /dev/null; then
+#fi
 
 __prompt_command() {
 
    local EXIT="$?"
-
-   local KUBE_PS1='';
-   # make kube-ps1 work with custom prompt
-   #
-   if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
-     source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
-     _kube_ps1_prompt_update
-     KUBE_PS1="\[\e[0m\]$(kube_ps1)"
-   fi
 
    if [ $EXIT != 0 ]; then
       prompt="\[\e[31m\]$ "        # Add red if exit code non 0
@@ -506,8 +514,7 @@ __prompt_command() {
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌─[\[\e[39;1m\]\u@\[\e[36;36m\]\h] \[\e[0;32m\]./\W ${KUBE_PS1}\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└─${prompt}\[\e[0m\]"
-
+   PS1="\[\e[36;1m\]┌─[\[\e[39;1m\]\u@\[\e[36;36m\]\h] \[\e[0;32m\]./\W$KUBE_PS1${VENV}\$(parse_perlbrew)\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└─${prompt}\[\e[0m\]"
 
 }
 
