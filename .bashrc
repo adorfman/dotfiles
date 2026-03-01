@@ -506,7 +506,7 @@ __prompt_command() {
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌─=[\[\e[39;1m\]\u@\[\e[36;36m\]\h] \[\e[0;32m\]./\W ${KUBE_PS1}\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└─${prompt}\[\e[0m\]"
+   PS1="\[\e[36;1m\]┌─[\[\e[39;1m\]\u@\[\e[36;36m\]\h] \[\e[0;32m\]./\W ${KUBE_PS1}\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└─${prompt}\[\e[0m\]"
 
 
 }
