@@ -497,7 +497,7 @@ __prompt_command() {
    if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
      source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
      _kube_ps1_prompt_update
-     KUBE_PS1="$(kube_ps1)"
+     KUBE_PS1="\[\e[0m\]$(kube_ps1)"
    fi
 
    if [ $EXIT != 0 ]; then
@@ -506,7 +506,7 @@ __prompt_command() {
       prompt='$ '
    fi
 
-   PS1="\[\e[36;1m\]┌───=[ \[\e[39;1m\]\u@\[\e[36;36m\]\h ] \[\e[0;32m\]./\W\[\033[33m\] ${KUBE_PS1}${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└──${prompt}\[\e[0m\]"
+   PS1="\[\e[36;1m\]┌─=[\[\e[39;1m\]\u@\[\e[36;36m\]\h] \[\e[0;32m\]./\W ${KUBE_PS1}\[\033[33m\] ${VENV}\$(parse_perlbrew) \$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└─${prompt}\[\e[0m\]"
 
 
 }
