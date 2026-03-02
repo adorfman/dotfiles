@@ -335,14 +335,7 @@ command! DiagraphSearch
       \ 'sink': function('InsertDiagraph')
       \ })
 
-" \ 'source': 'awk ''/*digraph-table*/{f=1;print $1} f'' '. $VIMRUNTIME .'/doc/digraph.txt',
-
-"  awk '/*digraph-table*/{f=1} f{print NR, $0}' /home/adorfman/.local/share/vim/vim90/doc/digraph.txt
-" Ctrl-e in normal and insert mode will open the emoji picker.
-" Unfortunately doesn't bring you back to insert mode 😕
-"map <C-e> :DiagraphSearch<CR>
-"imap <C-e> <C-o><C-e>
-
+nnoremap <leader>ds :DiagraphSearch<CR>
 
 let g:ale_linters = {
    \ 'python': ['pylint', 'flake8', 'mypy'],
