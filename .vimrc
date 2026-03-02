@@ -288,21 +288,10 @@ xnoremap <leader>cb :<c-u>call InsertCodeBlock('')<CR>
 
 
 
-
-
-
 "set lcd so fzf-vim with search from the path of the current open file
 autocmd BufEnter ~/vimwiki/* silent! lcd %:p:h
 autocmd FileType vimwiki hi vimwikiCodeBlock ctermfg=yellow ctermbg=black guifg=yellow guibg=black
-"autocmd TerminalOpen  * setlocal nonumber norelativenumber
-"autocmd TerminalOpen,BufEnter term://*  setlocal nonumber norelativenumber
 autocmd  TerminalOpen,BufEnter * if &buftype == 'terminal' | setlocal nonumber norelativenumber | endif
-"augroup TerminalSetup
-"  autocmd!
-"  autocmd TerminalOpen * setlocal nonumber norelativenumber cursorline
-"augroup END
-
-"endif
 
 
 " Use emoji-fzf and fzf to fuzzy-search for emoji, and insert the result
@@ -323,9 +312,8 @@ map <C-e> :Emoj<CR>
 imap <C-e> <C-o><C-e>
 
 function! InsertDiagraph(emoji)
-
-    let @a = system('echo -n "'. a:emoji .'" | cut -d " " -f 2 | tr -d ''\n'' ')
-    normal! "agp
+  let @a = system('echo -n "'. a:emoji .'" | cut -d " " -f 2 | tr -d ''\n'' ')
+  normal! "agp
 endfunction
 
 command! DiagraphSearch
