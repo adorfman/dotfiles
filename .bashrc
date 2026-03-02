@@ -480,10 +480,12 @@ alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cu
 
 
 
-source ~/.kubectx/completion/kubens.bash
-source ~/.kubectx/completion/kubectx.bash
+
 
 if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
+
+  source ~/.kubectx/completion/kubens.bash
+  source ~/.kubectx/completion/kubectx.bash
   source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
   _kube_ps1_prompt_update
   KUBE_PS1=" \[\e[0m\]\$(kube_ps1)"
@@ -541,7 +543,9 @@ eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
 eval "$(zoxide init bash --cmd cd )"
 
 # Kubernetes
-source <(kubectl completion bash)
+if command -v kubectl 1>/dev/null; then
+    source <(kubectl completion bash)
+fi
 
 return 0
 
