@@ -322,6 +322,28 @@ command! -bang Emoj
 map <C-e> :Emoj<CR>
 imap <C-e> <C-o><C-e>
 
+function! InsertDiagraph(emoji)
+
+    let @a = system('echo -n "'. a:emoji .'" | cut -d " " -f 2 | tr -d ''\n'' ')
+    normal! "agp
+endfunction
+
+command! DiagraphSearch
+  \ call fzf#run({
+      \ 'source': 'awk ''/*digraph-table*/{f=1} f{$2=$3=$4=""; $0=$0;print NR, $0}'' '. $VIMRUNTIME .'/doc/digraph.txt',
+      \ 'options': '--preview ''awk "NR=={r1} {print \$1}" '. $VIMRUNTIME .'/doc/digraph.txt''',
+      \ 'sink': function('InsertDiagraph')
+      \ })
+
+" \ 'source': 'awk ''/*digraph-table*/{f=1;print $1} f'' '. $VIMRUNTIME .'/doc/digraph.txt',
+
+"  awk '/*digraph-table*/{f=1} f{print NR, $0}' /home/adorfman/.local/share/vim/vim90/doc/digraph.txt
+" Ctrl-e in normal and insert mode will open the emoji picker.
+" Unfortunately doesn't bring you back to insert mode 😕
+"map <C-e> :DiagraphSearch<CR>
+"imap <C-e> <C-o><C-e>
+
+
 let g:ale_linters = {
    \ 'python': ['pylint', 'flake8', 'mypy'],
    \  'cpp': ['cc', 'gcc', 'clang']

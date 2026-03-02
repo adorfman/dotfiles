@@ -472,6 +472,7 @@ if [ -f "$HOME/.cargo/env"  ]; then
     source "$HOME/.cargo/env"
 fi
 
+# pip install emoji-fzf
 # add me to your ~/.bashrc or ~/.zshrc or whatnot
 alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cut -d " " -f 1 | emoji-fzf get'
 # to copy to xclip system keyboard (on mac use pbcopy) after selecting
