@@ -381,7 +381,7 @@ export PATH=~/.npm-global/bin:$PATH
 if [ -f ~/.fzf.bash ]; then
    source  ~/.fzf.bash
    source ~/fzf-tab-completion/bash/fzf-bash-completion.sh
-   bind -x '"\t": fzf_bash_completion'
+   bind -x '"**": fzf_bash_completion'
 
    PREVIEW_CMD=$( cat << EOF
    --multi
