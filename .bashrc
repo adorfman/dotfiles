@@ -482,24 +482,37 @@ alias emoj='emoji-fzf preview | fzf -m --preview "emoji-fzf get --name {1}" | cu
 
 
 
-if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
+__load_kube_ctx() {
+  if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
 
-  source ~/.kubectx/completion/kubens.bash
-  source ~/.kubectx/completion/kubectx.bash
-  source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
-  _kube_ps1_prompt_update
-  KUBE_PS1=" \[\e[0m\]\$(kube_ps1)"
-else
-  KUBE_PS1=""
-  kube_ps1() {
-    echo -n ''
-  }
-  kubeoff() {
-     1
-  }
-fi
+    source ~/.kubectx/completion/kubens.bash
+    source ~/.kubectx/completion/kubectx.bash
+    source /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh
 
-kubeoff
+    kubeoff
+  else
+    kube_ps1() {
+      echo -n ''
+    }
+    kubeon() {
+       return 1
+    }
+    kubeoff() {
+       return 1
+    }
+  fi
+}
+
+__update_kube_ctx() {
+ if [ -f  /home/linuxbrew/.linuxbrew/opt/kube-ps1/share/kube-ps1.sh ]; then
+    _kube_ps1_prompt_update
+    KUBE_PS1=" \[\e[0m\]\$(kube_ps1)"
+ else
+    KUBE_PS1=""
+ fi
+}
+
+__load_kube_ctx
 
 # Final prompt
 PROMPT_COMMAND=__prompt_command
@@ -516,6 +529,8 @@ __prompt_command() {
    else
       prompt='$ '
    fi
+
+   __update_kube_ctx
 
    PS1="\[\e[36;1m\]┌─[\[\e[39;1m\]\u@\[\e[36;36m\]\h] \[\e[0;32m\]./\W$KUBE_PS1${VENV}\$(parse_perlbrew)\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\n\[\e[36;1m\]└─${prompt}\[\e[0m\]"
 
