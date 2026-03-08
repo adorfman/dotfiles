@@ -255,6 +255,7 @@ fun StripTrailingWhitespaces()
 endfunction
 
 autocmd BufWritePre * :call StripTrailingWhitespaces()
+autocmd BufWritePre * :GitGutterAll
 
 
 augroup vimwiki_auto_stuff
@@ -324,6 +325,9 @@ command! DiagraphSearch
       \ })
 
 nnoremap <leader>ds :DiagraphSearch<CR>
+
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
 
 let g:ale_linters = {
    \ 'python': ['pylint', 'flake8', 'mypy'],
